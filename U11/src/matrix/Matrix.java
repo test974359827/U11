@@ -178,7 +178,6 @@ public class Matrix<T extends Comparable<T>> {
 					rMatrix.setCell(i, j, this.getCell(i, j));
 				else
 					rMatrix.setCell(i, j, arithmetic.zero());
-					
 			}
 		}
 		return rMatrix;
