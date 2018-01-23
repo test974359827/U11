@@ -68,7 +68,7 @@ public class Matrix<T extends Comparable<T>> {
 	 * @return gibt den Wert der Zelle zurück als T 
 	 */
 	public T getCell(int row, int column){
-		return data.get(row).get(column); //TODO
+		return data.get(row).get(column); 
 	}
 	
 	/**
@@ -81,6 +81,62 @@ public class Matrix<T extends Comparable<T>> {
 		LinkedList<T> RowData =data.get(row);
 		RowData.set(column, Value);
 		data.set(row, RowData);
+	}
+	
+	/**
+	 * add :gibt das Ergebnis der Addition mit other(@param) zurück 
+	 * 
+	 * @param other
+	 * @return
+	 */
+	public Matrix<T> add(Matrix<T> other){
+		
+		return null;
+	}
+	
+	/**
+	 * mul : die gibt das Ergebnis der Multiplikation mit other(@param) zurück
+	 * 
+	 * @param other
+	 * @return
+	 */
+	public Matrix<T> mul(Matrix<T> other){
+		
+		return null;
+	}
+	
+	/**
+	 * transpose : Diese bildet die transponierte Matrix zur aktuellen Matrix und gibt diese zurück
+	 * 
+	 * @return
+	 */
+	public Matrix<T> transpose(){
+		
+		return null;
+	}
+	
+	/**
+	 * getMinMax : gibt entweder den größten oder den kleinsten Wert der Matrix zurück. 
+	 * Ist der Boolean min(@param) true soll der kleinste Wert der Matrix zurückgegeben werden
+	 * 
+	 * @param min
+	 * @return
+	 */
+	public Matrix<T> getMinMax(boolean min){
+		
+		return null;
+	}
+
+	/**
+	 * resize : die gibt eine neue Matrix mit entsprechend veränderter Größe zurück
+	 * 
+	 * @param rows
+	 * @param columns
+	 * @return
+	 */
+	public Matrix<T> resize(int rows, int columns){
+		
+		return null;
 	}
 }
 
