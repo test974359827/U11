@@ -166,8 +166,22 @@ public class Matrix<T extends Comparable<T>> {
 	 * @return
 	 */
 	public Matrix<T> resize(int rows, int columns){
+		if(this.rows + rows <= 0)
+			return null;
+		if(this.columns + columns <= 0)
+			return null;
+		Matrix<T> rMatrix = new Matrix<T>(this.rows + rows,this.columns + columns,arithmetic);
 		
-		return null;
+		for(int i = 0 ; i < this.rows + rows ; i++){
+			for(int j = 0 ; j < this.columns + columns ; j++){
+				if(this.rows > i && this.columns > j)
+					rMatrix.setCell(i, j, this.getCell(i, j));
+				else
+					rMatrix.setCell(i, j, arithmetic.zero());
+					
+			}
+		}
+		return rMatrix;
 	}
 	
 	/**
