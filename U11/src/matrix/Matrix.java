@@ -1,6 +1,9 @@
 package matrix;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * 
@@ -39,7 +42,6 @@ public class Matrix<T extends Comparable<T>> {
 		this.rows = rows;
 		this.columns= columns;
 		this.arithmetic = arithmetic;
-		//TODO
 	}
 	
 	/**
@@ -48,7 +50,7 @@ public class Matrix<T extends Comparable<T>> {
 	 * @return rows als int
 	 */
 	public int getRows(){
-		return rows;
+		return data.size(); // or rows ? 
 	}
 	
 	/**
@@ -57,7 +59,7 @@ public class Matrix<T extends Comparable<T>> {
 	 * @return columns als int
 	 */
 	public int getColumns(){
-		return columns; 
+		return data.getFirst().size(); // or columns ?
 	}
 	
 	/**
@@ -90,8 +92,14 @@ public class Matrix<T extends Comparable<T>> {
 	 * @return
 	 */
 	public Matrix<T> add(Matrix<T> other){
-		
-		return null;
+		Matrix<T> aMatrix = new Matrix<T>(this.getRows(),this.getColumns(),arithmetic);
+		if(sameSize(this, other)){
+			for(int i = 0 ; i < this.getRows() ; i++){
+				for(int j = 0 ; j < this.getColumns() ; j++)
+				aMatrix.setCell(i, j, arithmetic.add(this.getCell(i, j), other.getCell(i, j)));
+			}
+		}
+		return aMatrix;
 	}
 	
 	/**
@@ -101,8 +109,17 @@ public class Matrix<T extends Comparable<T>> {
 	 * @return
 	 */
 	public Matrix<T> mul(Matrix<T> other){
-		
-		return null;
+		Matrix<T> mMatrix = new Matrix<T>(this.getRows(),this.getColumns(),arithmetic);
+		if(obMul(this, other)){
+			for(int i = 0 ; i < this.getRows() ; i++){
+				for(int j = 0 ; j < this.getColumns() ; j++){
+					mMatrix.setCell(i, j, arithmetic.zero());
+					for(int x = 0 ; x < other.getColumns() ; x++)
+						mMatrix.setCell(i, j, arithmetic.add(mMatrix.getCell(i, j), arithmetic.mul(this.getCell(i, x), other.getCell(x, j))));
+				}
+			}
+		}
+		return mMatrix;
 	}
 	
 	/**
@@ -111,8 +128,12 @@ public class Matrix<T extends Comparable<T>> {
 	 * @return
 	 */
 	public Matrix<T> transpose(){
-		
-		return null;
+		Matrix<T> tMatrix = new Matrix<T>(this.getColumns(),this.getRows(),arithmetic) ;
+		for(int i = 0 ; i < this.getRows() ; i++){
+			for(int j = 0 ; j < this.getColumns() ; j++)
+				tMatrix.setCell(i, j, this.getCell(j, i));
+		}
+		return tMatrix;
 	}
 	
 	/**
@@ -123,8 +144,18 @@ public class Matrix<T extends Comparable<T>> {
 	 * @return
 	 */
 	public Matrix<T> getMinMax(boolean min){
-		
-		return null;
+		List<T> temp = new ArrayList<T>();
+		for(int i = 0 ; i < this.getRows() ; i++){
+			for(int j = 0 ; j < this.getColumns() ; j++)
+				temp.add(this.getCell(i, j));
+		}
+		Collections.sort(temp);
+		Matrix<T> tempMatrix = new Matrix<T>(1,1,arithmetic);
+		if(min)
+			tempMatrix.setCell(0, 0, temp.get(0));
+		else
+			tempMatrix.setCell(0, 0, temp.get(temp.size()-1));
+		return tempMatrix;
 	}
 
 	/**
@@ -137,6 +168,26 @@ public class Matrix<T extends Comparable<T>> {
 	public Matrix<T> resize(int rows, int columns){
 		
 		return null;
+	}
+	
+	/**
+	 * 
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	private boolean sameSize(Matrix<T> a,Matrix<T> b){
+		return (a.getRows() == b.getRows() && a.getColumns() == b.getColumns());
+	}
+	
+	/**
+	 * 
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	private boolean obMul(Matrix<T> a,Matrix<T> b){
+		return (a.getColumns() == b.getRows());
 	}
 }
 
