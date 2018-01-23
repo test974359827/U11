@@ -78,8 +78,24 @@ public class Matrix<T extends Comparable<T>> {
 	 * @param Value
 	 */
 	public void setCell(int row, int column,T Value ){
-		LinkedList<LinkedList<T>> TempDate = null ; 
-		for(int i = 0 ; i < data.g)
-		}
-	
+		LinkedList<T> RowData =data.get(row);
+		RowData.set(column, Value);
+		data.set(row, RowData);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
