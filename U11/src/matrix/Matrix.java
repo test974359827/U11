@@ -20,7 +20,7 @@ public class Matrix<T extends Comparable<T>> {
 	 * Private ATribute als LinkedList<LinkedList<t>> enthält die Daten der Matrix und  
 	 * repräsentiert dieäußere LinkedList die Reihen und die innere LinkedList die Spalten der Matrix
 	 */
-	private LinkedList<LinkedList<T>> data = null ; 
+	private LinkedList<LinkedList<T>> data =new LinkedList<LinkedList<T>>() ; 
 	/**
 	 *  private Atribute für Speichern der aktuellen Anzahl der Reihen der Matrix
 	 */
@@ -42,6 +42,14 @@ public class Matrix<T extends Comparable<T>> {
 		this.rows = rows;
 		this.columns= columns;
 		this.arithmetic = arithmetic;
+		LinkedList<T> temp = new LinkedList<T>();
+		for(int i = 0 ;i< rows ; i++){
+			for(int j = 0 ;j< columns ; j++)
+				temp.add(arithmetic.zero());
+			data.add(new LinkedList<T>());
+		}
+		System.out.println(getRows());
+		System.out.println(getColumns());
 	}
 	
 	/**
@@ -80,7 +88,8 @@ public class Matrix<T extends Comparable<T>> {
 	 * @param Value
 	 */
 	public void setCell(int row, int column,T Value ){
-		LinkedList<T> RowData =data.get(row);
+		LinkedList<T> RowData;
+		RowData = data.get(row);
 		RowData.set(column, Value);
 		data.set(row, RowData);
 	}

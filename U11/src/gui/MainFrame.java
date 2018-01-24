@@ -2,7 +2,7 @@ package gui;
 
 import java.awt.EventQueue;
 import java.awt.Toolkit;
-
+import matrix.*;
 import javax.swing.JFrame;
 import javax.swing.JToolBar;
 import java.awt.BorderLayout;
@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
@@ -25,20 +26,38 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Set;
 import java.util.jar.Attributes.Name;
 
 import javax.swing.JTextField;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
-public class MainFrame implements KeyListener,ActionListener  {
+public class MainFrame  implements ActionListener  {
 
+	/**
+	 * 
+	 */
+	
 	private JFrame frame;
-	private JPanel panel_Input;
+	private JPanel panel_Input,panel_2;
 	private JButton btnAddFirst,btnAddSecond,btnNeu,btnRechnen;
 	private JRadioButton rdbtnTransponse,rdbtnAddiotion, rdbtnMultiplikation,rdbtnMaxOrMin,rdbtnResize;
 	private JTextField txtR1,txtC1,txtC2,txtR2;
 	private JLabel label_1,label_2,lblRowsCount,lblRows,lblSecondMatrix,lblFirstMatrix;
+	private Input M1 = null,M2 = null;
+	public static MainFrame window;
+	Object[][] I1;
+	private Object[][] I2 ;
+	ButtonGroup rdbG;
+	private LinkedList<LinkedList<Float>> dataF1 = null ;
+	private LinkedList<LinkedList<Float>> dataF2 = null ;
+	private LinkedList<LinkedList<Integer>> dataI1 = null ;
+	private LinkedList<LinkedList<Integer>> dataI2 = null ;
 	
 	/**
 	 * Launch the application.
@@ -47,7 +66,7 @@ public class MainFrame implements KeyListener,ActionListener  {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainFrame window = new MainFrame();
+					window = new MainFrame();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -71,75 +90,97 @@ public class MainFrame implements KeyListener,ActionListener  {
 		int x = Framesize.width, y = Framesize.height;
 		
 		frame = new JFrame();
-		frame.getContentPane().setLayout(null);
+		getFrame().setResizable(false);
+		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getFrame().getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panel.setLayout(null);
-		panel.setBounds(10, 11, 124, 202);
-		frame.getContentPane().add(panel);
+		panel.setBounds(20, 20, 170, 310);
+		getFrame().getContentPane().add(panel);
 		
 		panel_Input = new JPanel();
 		panel_Input.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panel_Input.setLayout(null);
-		panel_Input.setBounds(144, 11, 295, 202);
-		frame.getContentPane().add(panel_Input);
+		panel_Input.setBounds(200, 20, 420, 310);
+		getFrame().getContentPane().add(panel_Input);
 		
 		rdbtnAddiotion = new JRadioButton("Addiotion");
+		rdbtnAddiotion.setFont(new Font("Arial", Font.PLAIN, 18));
 		rdbtnAddiotion.addActionListener(this);
-		rdbtnAddiotion.setBounds(6, 7, 109, 23);
-		rdbtnAddiotion.addKeyListener(this);
+		rdbtnAddiotion.setBounds(10, 5, 144, 60);
+//		rdbtnAddiotion.addKeyListener(this);
 		rdbtnAddiotion.setSelected(true);
 		panel.add(rdbtnAddiotion);
 		
 		rdbtnMultiplikation = new JRadioButton("Multiplikation");
+		rdbtnMultiplikation.setFont(new Font("Arial", Font.PLAIN, 18));
 		rdbtnMultiplikation.addActionListener(this);
-		rdbtnMultiplikation.setBounds(6, 47, 109, 23);
-		rdbtnMultiplikation.addKeyListener(this);
+		rdbtnMultiplikation.setBounds(10, 65, 144, 60);
+//		rdbtnMultiplikation.addKeyListener(this);
 		panel.add(rdbtnMultiplikation);
 		
 		rdbtnTransponse = new JRadioButton("Transponse");
+		rdbtnTransponse.setFont(new Font("Arial", Font.PLAIN, 18));
 		rdbtnTransponse.addActionListener(this);
-		rdbtnTransponse.setBounds(6, 87, 109, 23);
-		rdbtnTransponse.addKeyListener(this);
+		rdbtnTransponse.setBounds(10, 125, 144, 60);
+//		rdbtnTransponse.addKeyListener(this);
 		panel.add(rdbtnTransponse);
 		
 		rdbtnResize = new JRadioButton("Resize");
+		rdbtnResize.setFont(new Font("Arial", Font.PLAIN, 18));
 		rdbtnResize.addActionListener(this);
-		rdbtnResize.setBounds(6, 127, 109, 23);
-		rdbtnResize.addKeyListener(this);
+		rdbtnResize.setBounds(10, 185, 144, 60);
+//		rdbtnResize.addKeyListener(this);
 		panel.add(rdbtnResize);
 		
 		rdbtnMaxOrMin = new JRadioButton("Max or Min");
+		rdbtnMaxOrMin.setFont(new Font("Arial", Font.PLAIN, 18));
 		rdbtnMaxOrMin.addActionListener(this);
-		rdbtnMaxOrMin.setBounds(6, 167, 109, 23);
-		rdbtnMaxOrMin.addKeyListener(this);
+		rdbtnMaxOrMin.setBounds(10, 245, 144, 60);
+//		rdbtnMaxOrMin.addKeyListener(this);
 		panel.add(rdbtnMaxOrMin);
 		
-		ButtonGroup rdbG = new ButtonGroup();
+		rdbG = new ButtonGroup();
 		rdbG.add(rdbtnAddiotion);
 		rdbG.add(rdbtnMultiplikation);
 		rdbG.add(rdbtnTransponse);
 		rdbG.add(rdbtnResize);
 		rdbG.add(rdbtnMaxOrMin);
 		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(630, 20, 120, 310);
+		panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panel_1.setLayout(null);
+		getFrame().getContentPane().add(panel_1);
+		
 		btnRechnen = new JButton("Rechnen");
-		btnRechnen.setBounds(449, 11, 89, 45);
-		btnRechnen.addKeyListener(this);
-		btnRechnen.addActionListener(this);
-		frame.getContentPane().add(btnRechnen);
+		btnRechnen.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnRechnen.setSize(100, 60);
+		btnRechnen.setLocation(10, 10);
+		panel_1.add(btnRechnen);
 		
 		btnNeu = new JButton("Neu");
-		btnNeu.setBounds(449, 63, 89, 45);
-		btnNeu.addKeyListener(this);
+		btnNeu.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnNeu.setSize(100, 60);
+		btnNeu.setLocation(10, 80);
+		panel_1.add(btnNeu);
+		
+		panel_2 = new JPanel();
+		panel_2.setBounds(0, 0, 770, 360);
+		getFrame().getContentPane().add(panel_2);
+//		btnNeu.addKeyListener(this);
 		btnNeu.addActionListener(this);
-		frame.getContentPane().add(btnNeu);
+//		btnRechnen.addKeyListener(this);
+		btnRechnen.addActionListener(this);
 
 		Panel();
 		
-		frame.setBounds(x/3, y/3, 568, 259);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
+		
+		
+		getFrame().setBounds((x-776)/2, (y-391)/2, 776, 391);
+		getFrame().setVisible(true);
 	}
 	
 	public void addPanel(){
@@ -153,62 +194,102 @@ public class MainFrame implements KeyListener,ActionListener  {
 		String lblString = "Matrix" , btnMatrix = "Add";
 		
 		lblSecondMatrix = new JLabel("Second Matrix");
-		lblSecondMatrix.setBounds(10, 106, 200, 23);
+		lblSecondMatrix.setFont(new Font("Arial", Font.PLAIN, 18));
+		lblSecondMatrix.setBounds(15, 173, 200, 23);
 		panel_Input.add(lblSecondMatrix);
 		
 		btnAddSecond = new JButton(btnMatrix);
-		btnAddSecond.setBounds(196, 128, 89, 46);
+		btnAddSecond.setFont(new Font("Arial", Font.PLAIN, 18));
+		btnAddSecond.setBounds(316, 200, 89, 59);
 		btnAddSecond.addActionListener(this);
 		panel_Input.add(btnAddSecond);
 		
+		btnAddFirst = new JButton(btnMatrix);
+		btnAddFirst.setFont(new Font("Arial", Font.PLAIN, 18));
+		btnAddFirst.addActionListener(this);
+		btnAddFirst.setBounds(316, 55, 89, 59);
+		panel_Input.add(btnAddFirst);
+		
 		label_1 = new JLabel("Rows count :");
-		label_1.setBounds(24, 132, 68, 14);
+		label_1.setFont(new Font("Arial", Font.PLAIN, 18));
+		label_1.setBounds(50, 212, 114, 14);
 		panel_Input.add(label_1);
 		
 		label_2 = new JLabel("Columnss count :");
-		label_2.setBounds(10, 160, 82, 14);
+		label_2.setFont(new Font("Arial", Font.PLAIN, 18));
+		label_2.setBounds(35, 245, 153, 14);
 		panel_Input.add(label_2);
 		
-		txtC2 = new JTextField();
-		txtC2.setColumns(10);
-		txtC2.setBounds(102, 157, 86, 20);
-		panel_Input.add(txtC2);
-		
-		txtR2 = new JTextField();
-		txtR2.setColumns(10);
-		txtR2.setBounds(102, 129, 86, 20);
-		panel_Input.add(txtR2);
-		
 		lblFirstMatrix = new JLabel(lblString);
-		lblFirstMatrix.setBounds(10, 10, 200, 23);
+		lblFirstMatrix.setFont(new Font("Arial", Font.PLAIN, 18));
+		lblFirstMatrix.setBounds(15, 16, 200, 23);
 		panel_Input.add(lblFirstMatrix);
 		
 		lblRows = new JLabel("Rows count :");
-		lblRows.setBounds(20, 35, 68, 14);
+		lblRows.setFont(new Font("Arial", Font.PLAIN, 18));
+		lblRows.setBounds(50, 62, 118, 14);
 		panel_Input.add(lblRows);
 		
 		lblRowsCount = new JLabel("Columnss count :");
-		lblRowsCount.setBounds(6, 63, 82, 14);
+		lblRowsCount.setFont(new Font("Arial", Font.PLAIN, 18));
+		lblRowsCount.setBounds(35, 92, 153, 14);
 		panel_Input.add(lblRowsCount);
 		
+		txtC2 = new JTextField();
+		txtC2.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				txtOP(txtC2,e);
+			}
+		});
+		txtC2.setFont(new Font("Arial", Font.PLAIN, 18));
+		txtC2.setColumns(10);
+		txtC2.setBounds(179, 239, 100, 25);
+		panel_Input.add(txtC2);
+		
+		txtR2 = new JTextField();
+		txtR2.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				txtOP(txtR2,e);
+			}
+		});
+		txtR2.setFont(new Font("Arial", Font.PLAIN, 18));
+		txtR2.setColumns(10);
+		txtR2.setBounds(179, 206, 100, 25);
+		panel_Input.add(txtR2);
+		
 		txtR1 = new JTextField();
-		txtR1.setBounds(98, 32, 86, 20);
+		txtR1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				txtOP(txtR1,e);
+			}
+		});
+		txtR1.setFont(new Font("Arial", Font.PLAIN, 18));
+		txtR1.setBounds(183, 55, 100, 25);
 		panel_Input.add(txtR1);
 		txtR1.setColumns(10);
 		
 		txtC1 = new JTextField();
+		txtC1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				txtOP(txtC1,e);
+			}
+		});
+		txtC1.setFont(new Font("Arial", Font.PLAIN, 18));
 		txtC1.setColumns(10);
-		txtC1.setBounds(98, 60, 86, 20);
+		txtC1.setBounds(183, 89, 100, 25);
 		panel_Input.add(txtC1);
 		
-		btnAddFirst = new JButton(btnMatrix);
-		btnAddFirst.addActionListener(this);
-		btnAddFirst.setBounds(196, 31, 89, 46);
-		panel_Input.add(btnAddFirst);
 		
 		
 	}
 	
+	
+	
+	@SuppressWarnings("deprecation")
 	public void change(boolean ob){
 		if(!ob){
 			lblSecondMatrix.hide();
@@ -227,32 +308,84 @@ public class MainFrame implements KeyListener,ActionListener  {
 			txtR2.show();
 		}
 	}
+	Matrix<Float> mat;
+	public void rechnen(){
+		System.out.println(I1[0].length);
+		Matrix<Float> mat1 = new Matrix<>(I1.length,I1[0].length, new FloatArithmetic());
+		dataF1 = arraytoList(I1);
+		for(int i = 0 ;i< I1.length ; i++){
+			for(int j = 0 ;j< I1[i].length ; j++)
+				mat1.setCell(i, j, dataF1.get(i).get(j));
+		}
+		
+		if(rdbtnAddiotion.isSelected()){
+			Matrix<Float> mat2 = new Matrix<>(I2.length,I2[0].length, new FloatArithmetic());
+			dataF1 = arraytoList(I2);
+			for(int i = 0 ;i< I1.length ; i++){
+				for(int j = 0 ;j< I1[i].length ; j++)
+					mat2.setCell(i, j, dataF1.get(i).get(j));
+			}
+			mat = new Matrix<Float>(I1.length,I1[0].length, new FloatArithmetic());
+			mat = mat1.add(mat2);
+		}
+		new Output(Mattoobj(mat));
+	}
 	
-	public void mulPanel(){
-		
-	}
-
-	public void tPanel(){
-		
-	}
-
-	public void momPanel(){
-		
-	}
-
-	public void resizePanel(){
-		
+	
+	private LinkedList<LinkedList<Float>> arraytoList(Object[][] Array){
+		LinkedList<Float> temp = new LinkedList<Float>();
+		LinkedList<LinkedList<Float>> a = new LinkedList<LinkedList<Float>>();
+		for(int i = 0 ;i< Array.length ; i++){
+			for(int j = 0 ;j< Array[i].length ; j++)
+				temp.add(PtoF(Array[i][j])) ;
+			a.add(temp);
+		}
+		return a ;
 	}
 	
+	@SuppressWarnings("null")
+	public Object[][] Mattoobj(Matrix<Float> a ){
+		Object[][] temp = null ;
+		for(int i = 0 ;i< a.getRows() ; i++)
+			for(int j = 0 ;j< a.getColumns() ; j++)
+				temp[i][j] = a.getCell(i, j);
+		return temp;
+	}
+	
+	private Float PtoF(Object obj){
+		float temp;
+		try {
+			temp = Float.parseFloat((String)obj);
+		} catch (Exception e) {
+			temp = 0;
+		}
+		return temp;
+	}
+
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnRechnen)
-			System.exit(0);//TODO
+			rechnen();//TODO
 		else if(e.getSource() == btnNeu)
 			System.exit(0);//TODO
-		else if(e.getSource() == btnAddFirst)
-			System.out.println(1);
-		else if(e.getSource() == btnAddSecond)
-			System.out.println(1);
+		else if(e.getSource() == btnAddFirst){
+			try {
+				M1 = new Input(1,Integer.parseInt(txtR1.getText()), Integer.parseInt(txtC1.getText()));
+				I1 = new Object[Integer.parseInt(txtR1.getText())][Integer.parseInt(txtC1.getText())];
+
+			} catch (Exception e2) {
+				System.out.println(txtR1.getText()+txtC1.getText());
+				MSG("Bitte geben Sie eine Zahl ein");
+			}
+		}
+		else if(e.getSource() == btnAddSecond){
+			try {
+				M2 = new Input(2,Integer.parseInt(txtR2.getText()), Integer.parseInt(txtC2.getText()));
+				I2 = new Object[Integer.parseInt(txtR2.getText())][Integer.parseInt(txtC2.getText())];
+
+			} catch (Exception e2) {
+				MSG("Bitte geben Sie eine Zahl ein");
+			}
+		}
 		else if(e.getSource() == rdbtnAddiotion)
 			change(true);
 		else if(e.getSource() == rdbtnMultiplikation)
@@ -265,29 +398,70 @@ public class MainFrame implements KeyListener,ActionListener  {
 			change(false);
 	}
 	
-	@Override
-	public void keyPressed(KeyEvent e) {
-		if(e.getKeyChar() == 'a' )
-			addPanel();
-		else if(e.getKeyChar() == 'm' )
-			mulPanel();
-		else if(e.getKeyChar() == 't' )
-			tPanel();
-		else if(e.getKeyChar() == 'w' )
-			momPanel();
-		else if(e.getKeyChar() == 'r' )
-			resizePanel();
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
+	private final Set<Character> pressed = new HashSet<Character>();
+	
+	private void txtOP(JTextField TF , KeyEvent e){
+		pressed.clear();
+		pressed.add(e.getKeyChar());
 		
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		
+		if(((int)e.getKeyChar() < 48 || (int)e.getKeyChar() > 57) &&
+				e.getKeyCode() != KeyEvent.VK_BACK_SPACE &&
+				e.getKeyCode() != KeyEvent.VK_ENTER
+				){
+			try{
+				
+				String txt = TF.getText();
+				char[] c = txt.toCharArray();
+				int b = c.length;
+				boolean Ja = true;
+				String txt2 = new String(c,0,c.length-1+pressed.size());
+				TF.setText(txt2);
+				int a = 0;
+				for(int i = c.length ; Ja;i++ ){
+					try {
+						int a1 = Integer.parseInt(TF.getText());
+						Ja = false;
+					} catch (Exception e2) {
+						a++;
+						System.out.println("h");
+						txt2 = new String(c,0,c.length-a);
+						TF.setText(txt2);
+					}
+				}
+			}
+			catch (Exception e2){
+				TF.setText("");
+			}
+		}
 	}
 	
 	
+	/**
+	 * Diese Methode zeigt die Nachrichten in dem GUI an. 
+	 * @param a 
+	 * 		a enthält die Nachricht als String 
+	 */
+	public void MSG(String a){
+		JOptionPane.showMessageDialog(null,a);
+	}
+	
+	public void fv(boolean a){
+		getFrame().setVisible(a);
+	}
+
+	public JFrame getFrame() {
+		return frame;
+	}
+	
+	public void add(Object[][] a , int m){
+		if(m == 1 )
+			I1 = a;
+		else if (m == 2 )
+			I2 = a;
+//		for(int i = 0 ;i< 2 ; i++){
+//			for(int j = 0 ;j< 2 ; j++)
+//				I1[i][j] = 2;
+//			I2 = I1:
+	}
+
 }
