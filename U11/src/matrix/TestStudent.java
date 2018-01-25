@@ -30,26 +30,31 @@ public class TestStudent {
 		
 
 	}
+	
+	@Test
 	public void getCellTest() {
 		
 		matrix1.setCell(0, 0,1 );
 		matrix1.setCell(0, 1,2 );
 		matrix1.setCell(1, 0,3 );
 		matrix1.setCell(1, 1,4 );
-		assertEquals(1, matrix1.getCell(0,0));
-		assertEquals(4, matrix1.getCell(1,1));
+		assertEquals(new Integer(1), matrix1.getCell(0,0));
+		assertEquals(new Integer(4), matrix1.getCell(1,1));
 		
 		
 	}
+	
+	@Test
     public void setCellTest() {
+		matrix1.setCell(0, 0,1 );
+		matrix1.setCell(0, 1,2 );
+		matrix1.setCell(1, 0,3 );
+		matrix1.setCell(1, 1,4 );
     	
-    	matrix1.setCell(1, 1,4 );
-    	
-    	assertEquals( 4, matrix1.getCell(1,1));
-		
+    	assertEquals( new Integer(4), matrix1.getCell(1,1));
 	}
     
-	
+	@Test
     public void addTest() {
     	    matrix1.setCell(0, 0,1 );
 		matrix1.setCell(0, 1,2 );
@@ -71,9 +76,11 @@ public class TestStudent {
     	
 		
 	}
+	
+	@Test
     public void mulTest() {
     	
-    	    matrix1.setCell(0, 0,1 );
+    	matrix1.setCell(0, 0,1 );
  		matrix1.setCell(0, 1,2 );
  		matrix1.setCell(1, 0,3 );
  		matrix1.setCell(1, 1,4 );
@@ -88,15 +95,21 @@ public class TestStudent {
  		matrix3.setCell(1, 0, 4);
  		matrix3.setCell(1, 1, 4);
 	}
+	
+	@Test
     public void transposeTest() {
     	
     	
     }
+	
+	@Test
     public void getMinMaxTest() {
     	
     	
     }
     
+	
+	@Test
     public void resizeTest() {
     	
     	
