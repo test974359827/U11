@@ -123,12 +123,12 @@ public class Matrix<T extends Comparable<T>> {
 	 * @return
 	 */
 	public Matrix<T> mul(Matrix<T> other){
-		Matrix<T> mMatrix = new Matrix<T>(this.getRows(),this.getColumns(),arithmetic);
+		Matrix<T> mMatrix = new Matrix<T>(this.getRows(),other.getColumns(),arithmetic);
 		if(obMul(this, other)){
 			for(int i = 0 ; i < this.getRows() ; i++){
-				for(int j = 0 ; j < this.getColumns() ; j++){
+				for(int j = 0 ; j < other.getColumns() ; j++){
 					mMatrix.setCell(i, j, arithmetic.zero());
-					for(int x = 0 ; x < other.getColumns() ; x++)
+					for(int x = 0 ; x < other.getRows() ; x++)
 						mMatrix.setCell(i, j, arithmetic.add(mMatrix.getCell(i, j), arithmetic.mul(this.getCell(i, x), other.getCell(x, j))));
 				}
 			}
