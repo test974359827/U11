@@ -14,7 +14,6 @@ public class Output {
 	private JTable table;
 	private Object[] col ;
 	private int Rows,Columns;
-	
 	DefaultTableModel mod ;
 	
 	public Output(Object[][] data , int a) {

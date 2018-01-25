@@ -2,13 +2,14 @@ package matrix;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Assert.*;
 import org.junit.Test;
 
 public class TestStudent {
 
-	Matrix matrix1= new Matrix(2, 2, new FloatArithmetic());
-	Matrix matrix2= new Matrix(2, 2, new FloatArithmetic());
-	Matrix matrix3= new Matrix(2, 2, new FloatArithmetic());
+	Matrix<Integer> matrix1= new Matrix<Integer>(2, 2, new IntegerArithmetic());
+	Matrix<Integer> matrix2= new Matrix<Integer>(2, 2, new IntegerArithmetic());
+	Matrix<Integer> matrix3= new Matrix<Integer>(2, 2, new IntegerArithmetic());
 
 	
 	
