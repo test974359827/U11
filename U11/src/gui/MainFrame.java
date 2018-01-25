@@ -256,10 +256,6 @@ public class MainFrame  implements ActionListener  {
 		txtC1.setBounds(183, 89, 100, 25);
 		panel_Input.add(txtC1);
 		
-		RdbF = new ButtonGroup();
-		RdbF.add(rdbtnMin);
-		RdbF.add(rdbtnMax);
-		
 		rdbtnMin = new JRadioButton("Min");
 		rdbtnMin.setBounds(118, 146, 80, 29);
 		rdbtnMin.setSelected(true);
@@ -268,6 +264,10 @@ public class MainFrame  implements ActionListener  {
 		rdbtnMax = new JRadioButton("Max");
 		rdbtnMax.setBounds(225, 146, 155, 29);
 		panel_Input.add(rdbtnMax);
+		
+		RdbF = new ButtonGroup();
+		RdbF.add(rdbtnMin);
+		RdbF.add(rdbtnMax);
 		
 		rdbtnMax.hide();
 		rdbtnMin.hide();
