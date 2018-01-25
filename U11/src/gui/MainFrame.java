@@ -160,6 +160,7 @@ public class MainFrame  implements ActionListener  {
 		
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void Panel(){
 		
 		
@@ -268,7 +269,8 @@ public class MainFrame  implements ActionListener  {
 		rdbtnMax.setBounds(225, 146, 155, 29);
 		panel_Input.add(rdbtnMax);
 		
-		
+		rdbtnMax.hide();
+		rdbtnMin.hide();
 		
 	}
 	
