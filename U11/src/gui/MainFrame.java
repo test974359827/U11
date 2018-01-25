@@ -310,9 +310,10 @@ public class MainFrame  implements ActionListener  {
 				mat1.setCell(i, j, (float)PtoF(I1[i][j]));
 			}
 		}
-		Matrix<Float> mat2 = new Matrix<>(I2.length,I2[0].length, new FloatArithmetic());
+		Matrix<Float> mat2 = null ;
 
 		if(rdbtnAddiotion.isSelected()){
+			mat2 = new Matrix<>(I2.length,I2[0].length, new FloatArithmetic());
 			for(int i = 0 ;i< I2.length ; i++){
 				for(int j = 0 ;j< I2[i].length ; j++){
 					mat2.setCell(i, j, (float)PtoF(I2[i][j]));
@@ -323,6 +324,7 @@ public class MainFrame  implements ActionListener  {
 		}
 		
 		else if(rdbtnMultiplikation.isSelected()){
+			mat2 = new Matrix<>(I2.length,I2[0].length, new FloatArithmetic());
 			for(int i = 0 ;i< I2.length ; i++){
 				for(int j = 0 ;j< I2[i].length ; j++){
 					mat2.setCell(i, j, (float)PtoF(I2[i][j]));
@@ -339,16 +341,16 @@ public class MainFrame  implements ActionListener  {
 		
 		else if(rdbtnMaxOrMin.isSelected()){
 			if(rdbtnMax.isSelected())
-				mat = mat1.getMinMax(true);
-			else if (rdbtnMin.isSelected())
 				mat = mat1.getMinMax(false);
+			else if (rdbtnMin.isSelected())
+				mat = mat1.getMinMax(true);
 		}
 		else if(rdbtnResize.isSelected()){
 				mat = mat1.resize(Integer.parseInt(txtR2.getText()), Integer.parseInt(txtC2.getText()));
 		}
 		
 		new Output(Mattoobj(mat1));
-		new Output(Mattoobj(mat2));
+		if(mat2 != null) new Output(Mattoobj(mat2));
 		new Output(Mattoobj(mat));
 	}
 	
