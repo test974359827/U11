@@ -302,6 +302,7 @@ public class MainFrame  implements ActionListener  {
 	public void rechnen(){
 		
 		Matrix<Float> mat1 = new Matrix<>(I1.length,I1[0].length, new FloatArithmetic());
+		
 		for(int i = 0 ;i< I1.length ; i++){
 			for(int j = 0 ;j< I1[i].length ; j++){
 				mat1.setCell(i, j, (float)PtoF(I1[i][j]));
