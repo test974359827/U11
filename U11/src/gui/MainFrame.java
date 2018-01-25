@@ -18,27 +18,25 @@ import javax.swing.border.EtchedBorder;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.Set;
 import javax.swing.JTextField;
-
+/**
+ * 
+ *
+ */
 public class MainFrame  implements ActionListener  {
 
-	/**
-	 * 
-	 */
 	
 	private JFrame frame;
 	private JPanel panel_Input,panel_2;
 	private JButton btnAddFirst,btnAddSecond,btnNeu,btnRechnen;
-	private JRadioButton rdbtnTransponse,rdbtnAddiotion, rdbtnMultiplikation,rdbtnMaxOrMin,rdbtnResize;
+	private JRadioButton rdbtnMax,rdbtnMin,rdbtnTransponse,rdbtnAddiotion, rdbtnMultiplikation,rdbtnMaxOrMin,rdbtnResize;
 	private JTextField txtR1,txtC1,txtC2,txtR2;
 	private JLabel label_1,label_2,lblRowsCount,lblRows,lblSecondMatrix,lblFirstMatrix;
-	private Input M1 = null,M2 = null;
 	public static MainFrame window;
 	Object[][] I1;
 	private Object[][] I2 ;
-	ButtonGroup rdbG;
+	ButtonGroup rdbG , RdbF;
 	
 	/**
 	 * Launch the application.
@@ -166,7 +164,7 @@ public class MainFrame  implements ActionListener  {
 		
 		
 		String lblString = "Matrix" , btnMatrix = "Add";
-		
+		String lblR = "Rows count :" , lblC = "Columns count :";
 		lblSecondMatrix = new JLabel("Second Matrix");
 		lblSecondMatrix.setFont(new Font("Arial", Font.PLAIN, 18));
 		lblSecondMatrix.setBounds(15, 173, 200, 23);
@@ -184,12 +182,12 @@ public class MainFrame  implements ActionListener  {
 		btnAddFirst.setBounds(316, 55, 89, 59);
 		panel_Input.add(btnAddFirst);
 		
-		label_1 = new JLabel("Rows count :");
+		label_1 = new JLabel(lblR);
 		label_1.setFont(new Font("Arial", Font.PLAIN, 18));
 		label_1.setBounds(50, 212, 114, 14);
 		panel_Input.add(label_1);
 		
-		label_2 = new JLabel("Columnss count :");
+		label_2 = new JLabel(lblC);
 		label_2.setFont(new Font("Arial", Font.PLAIN, 18));
 		label_2.setBounds(35, 245, 153, 14);
 		panel_Input.add(label_2);
@@ -257,6 +255,19 @@ public class MainFrame  implements ActionListener  {
 		txtC1.setBounds(183, 89, 100, 25);
 		panel_Input.add(txtC1);
 		
+		RdbF = new ButtonGroup();
+		RdbF.add(rdbtnMin);
+		RdbF.add(rdbtnMax);
+		
+		rdbtnMin = new JRadioButton("Min");
+		rdbtnMin.setBounds(118, 146, 80, 29);
+		rdbtnMin.isSelected();
+		panel_Input.add(rdbtnMin);
+		
+		rdbtnMax = new JRadioButton("Max");
+		rdbtnMax.setBounds(225, 146, 155, 29);
+		panel_Input.add(rdbtnMax);
+		
 		
 		
 	}
@@ -265,6 +276,7 @@ public class MainFrame  implements ActionListener  {
 	
 	@SuppressWarnings("deprecation")
 	public void change(boolean ob){
+		String lblR = "Rows count :" , lblC = "Columns count :";
 		if(!ob){
 			lblSecondMatrix.hide();
 			btnAddSecond.hide();
@@ -276,24 +288,28 @@ public class MainFrame  implements ActionListener  {
 		else{
 			lblSecondMatrix.show();
 			btnAddSecond.show();
+			label_1.setText(lblR);
+			label_2.setText(lblC);
 			label_1.show();
 			label_2.show();
 			txtC2.show();
 			txtR2.show();
 		}
+		rdbtnMax.hide();
+		rdbtnMin.hide();
 	}
 	Matrix<Float> mat;
 	public void rechnen(){
+		
 		Matrix<Float> mat1 = new Matrix<>(I1.length,I1[0].length, new FloatArithmetic());
 		for(int i = 0 ;i< I1.length ; i++){
 			for(int j = 0 ;j< I1[i].length ; j++){
 				mat1.setCell(i, j, (float)PtoF(I1[i][j]));
-				
 			}
 		}
-		
+		Matrix<Float> mat2 = new Matrix<>(I2.length,I2[0].length, new FloatArithmetic());
+
 		if(rdbtnAddiotion.isSelected()){
-			Matrix<Float> mat2 = new Matrix<>(I2.length,I2[0].length, new FloatArithmetic());
 			for(int i = 0 ;i< I2.length ; i++){
 				for(int j = 0 ;j< I2[i].length ; j++){
 					mat2.setCell(i, j, (float)PtoF(I2[i][j]));
@@ -302,7 +318,33 @@ public class MainFrame  implements ActionListener  {
 			mat = new Matrix<Float>(I1.length,I1[0].length, new FloatArithmetic());
 			mat = mat1.add(mat2);
 		}
-
+		
+		else if(rdbtnMultiplikation.isSelected()){
+			for(int i = 0 ;i< I2.length ; i++){
+				for(int j = 0 ;j< I2[i].length ; j++){
+					mat2.setCell(i, j, (float)PtoF(I2[i][j]));
+				}
+			}
+			mat = new Matrix<Float>(I1.length,I1[0].length, new FloatArithmetic());
+			mat = mat1.mul(mat2);
+		}
+		
+		else if(rdbtnTransponse.isSelected()){
+			mat = mat1.add(mat1);
+		}
+		
+		else if(rdbtnMaxOrMin.isSelected()){
+			if(rdbtnMax.isSelected())
+				mat = mat1.getMinMax(true);
+			else if (rdbtnMin.isSelected())
+				mat = mat1.getMinMax(false);
+		}
+		else if(rdbtnResize.isSelected()){
+				mat = mat1.resize(Integer.parseInt(txtR2.getText()), Integer.parseInt(txtC2.getText()));
+		}
+		
+		new Output(Mattoobj(mat1));
+		new Output(Mattoobj(mat2));
 		new Output(Mattoobj(mat));
 	}
 	
@@ -335,7 +377,7 @@ public class MainFrame  implements ActionListener  {
 			System.exit(0);//TODO
 		else if(e.getSource() == btnAddFirst){
 			try {
-				M1 = new Input(1,Integer.parseInt(txtR1.getText()), Integer.parseInt(txtC1.getText()));
+				Input  M1 = new Input(1,Integer.parseInt(txtR1.getText()), Integer.parseInt(txtC1.getText()));
 				I1 = new Object[Integer.parseInt(txtR1.getText())][Integer.parseInt(txtC1.getText())];
 
 			} catch (Exception e2) {
@@ -344,7 +386,7 @@ public class MainFrame  implements ActionListener  {
 		}
 		else if(e.getSource() == btnAddSecond){
 			try {
-				M2 = new Input(2,Integer.parseInt(txtR2.getText()), Integer.parseInt(txtC2.getText()));
+				Input M2 = new Input(2,Integer.parseInt(txtR2.getText()), Integer.parseInt(txtC2.getText()));
 				I2 = new Object[Integer.parseInt(txtR2.getText())][Integer.parseInt(txtC2.getText())];
 
 			} catch (Exception e2) {
@@ -358,11 +400,36 @@ public class MainFrame  implements ActionListener  {
 		else if(e.getSource() == rdbtnTransponse)
 			change(false);
 		else if(e.getSource() == rdbtnResize)
-			change(false);
+			change2();
 		else if(e.getSource() == rdbtnMaxOrMin)
-			change(false);
+			change3();
 	}
 	
+	@SuppressWarnings("deprecation")
+	private void change2() {
+		String lblR = "sub Rows :" , lblC = "sub Columns :";
+		lblSecondMatrix.hide();
+		btnAddSecond.hide();
+		label_1.setText(lblR);
+		label_2.setText(lblC);
+		label_1.show();
+		label_2.show();
+		txtC2.show();
+		txtR2.show();
+		rdbtnMax.hide();
+		rdbtnMin.hide();
+	}
+	@SuppressWarnings("deprecation")
+	private void change3() {
+		rdbtnMax.show();
+		rdbtnMin.show();
+		lblSecondMatrix.hide();
+		btnAddSecond.hide();
+		label_1.hide();
+		label_2.hide();
+		txtC2.hide();
+		txtR2.hide();
+	}
 	private final Set<Character> pressed = new HashSet<Character>();
 	
 	private void txtOP(JTextField TF , KeyEvent e){
@@ -377,12 +444,11 @@ public class MainFrame  implements ActionListener  {
 				
 				String txt = TF.getText();
 				char[] c = txt.toCharArray();
-				int b = c.length;
 				boolean Ja = true;
 				String txt2 = new String(c,0,c.length-1+pressed.size());
 				TF.setText(txt2);
 				int a = 0;
-				for(int i = c.length ; Ja;i++ ){
+				while( Ja){
 					try {
 						int a1 = Integer.parseInt(TF.getText());
 						Ja = false;

@@ -88,8 +88,7 @@ public class Input implements ActionListener {
 		table.setBounds(15, 16, size*Columns,size*Rows);
 		for(int i = 0 ; i < col.length ; i ++)
 			table.getColumnModel().getColumn(i).setPreferredWidth(size);
-//		for(int i = 0 ; i < Rows ; i ++)
-			table.setRowHeight(size);
+		table.setRowHeight(size);
 		frameIn.getContentPane().add(table);
 		
 		btnFinish = new JButton("Finish");
@@ -130,19 +129,10 @@ public class Input implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnFinish){
-//		System.out.println(table.getModel().getValueAt(0, 0));
 			MainFrame.window.add(data, matrixNummer);
+			table.getCellEditor().stopCellEditing();
 			MainFrame.window.getFrame().setVisible(true);
 			frameIn.setVisible(false);
-//			table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-//		    table.setColumnSelectionAllowed(true);
-//		    table.setRowSelectionAllowed(true);
-//
-//		    int row = 2;
-//		    int col = 1;
-//		    boolean toggle = false;
-//		    boolean extend = false;
-//		    table.changeSelection(row, col, toggle, extend);
 		}
 		else if(e.getSource() == btnNew){
 			for(int i = 0 ;i< Rows ; i++)
