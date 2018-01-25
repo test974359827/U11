@@ -197,6 +197,7 @@ public class Matrix<T extends Comparable<T>> {
 		return rMatrix;
 	}
 	
+	
 	/**
 	 * 
 	 * @param a

@@ -330,6 +330,7 @@ public class MainFrame  implements ActionListener  {
 			mat = mat1.mul(mat2);
 		}
 		
+		
 		else if(rdbtnTransponse.isSelected()){
 			mat = mat1.add(mat1);
 		}

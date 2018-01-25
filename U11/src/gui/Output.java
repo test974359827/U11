@@ -46,4 +46,5 @@ public class Output {
 		frameOut.setBounds((x- size*Columns+200)/2,(y-size*Rows + 50)/2,size*Columns+200, size*Rows + 150 );
 		frameOut.setVisible(true);
 	}
+	
 }
