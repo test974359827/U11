@@ -4,13 +4,8 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 import matrix.*;
 import javax.swing.JFrame;
-import javax.swing.JToolBar;
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.*;
-import java.awt.event.*;
-import javax.swing.JTabbedPane;
-import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -19,23 +14,13 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JPanel;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.CompoundBorder;
 import javax.swing.border.EtchedBorder;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
-import java.util.jar.Attributes.Name;
-
 import javax.swing.JTextField;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
 
 public class MainFrame  implements ActionListener  {
 
@@ -49,15 +34,10 @@ public class MainFrame  implements ActionListener  {
 	private JRadioButton rdbtnTransponse,rdbtnAddiotion, rdbtnMultiplikation,rdbtnMaxOrMin,rdbtnResize;
 	private JTextField txtR1,txtC1,txtC2,txtR2;
 	private JLabel label_1,label_2,lblRowsCount,lblRows,lblSecondMatrix,lblFirstMatrix;
-	private Input M1 = null,M2 = null;
 	public static MainFrame window;
 	Object[][] I1;
 	private Object[][] I2 ;
 	ButtonGroup rdbG;
-	private LinkedList<LinkedList<Float>> dataF1 = null ;
-	private LinkedList<LinkedList<Float>> dataF2 = null ;
-	private LinkedList<LinkedList<Integer>> dataI1 = null ;
-	private LinkedList<LinkedList<Integer>> dataI2 = null ;
 	
 	/**
 	 * Launch the application.
@@ -441,10 +421,6 @@ public class MainFrame  implements ActionListener  {
 			I1 = a;
 		else if (m == 2 )
 			I2 = a;
-//		for(int i = 0 ;i< 2 ; i++){
-//			for(int j = 0 ;j< 2 ; j++)
-//				I1[i][j] = 2;
-//			I2 = I1:
 	}
 
 }
