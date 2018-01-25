@@ -6,9 +6,9 @@ import org.junit.Test;
 
 public class TestStudent {
 
-	Matrix matrix1= new Matrix(2, 2, new FloatArithmetic());
-	Matrix matrix2= new Matrix(2, 2, new FloatArithmetic());
-	Matrix matrix3= new Matrix(2, 2, new FloatArithmetic());
+	Matrix matrix1= new Matrix(2, 2, new IntegerArithmetic());
+	Matrix matrix2= new Matrix(2, 2, new IntegerArithmetic());
+	Matrix matrix3= new Matrix(2, 2, new IntegerArithmetic());
 
 	
 	
