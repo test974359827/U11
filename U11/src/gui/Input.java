@@ -36,9 +36,6 @@ import java.awt.event.KeyEvent;
 
 public class Input implements ActionListener {
 
-	/**
-	 * 
-	 */
 	private JFrame frameIn ;
 	private JTable table;
 	private JButton btnNew , btnFinish;
@@ -108,16 +105,12 @@ public class Input implements ActionListener {
 			   }
 			});
 		
-		
 		frameIn.setResizable(false);
 		frameIn.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frameIn.setBounds((x- size*Columns+200)/2,(y-size*Rows + 50)/2,size*Columns+200, size*Rows + 150 );
 		frameIn.setVisible(true);
 		
 		MainFrame.window.getFrame().setVisible(false);
-		
-		
-		
 	}
 
 	private void rerun(){
@@ -125,7 +118,6 @@ public class Input implements ActionListener {
 		table.setModel(mod);
 		
 	}
-	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
