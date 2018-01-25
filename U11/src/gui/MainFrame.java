@@ -34,6 +34,7 @@ public class MainFrame  implements ActionListener  {
 	private JRadioButton rdbtnTransponse,rdbtnAddiotion, rdbtnMultiplikation,rdbtnMaxOrMin,rdbtnResize;
 	private JTextField txtR1,txtC1,txtC2,txtR2;
 	private JLabel label_1,label_2,lblRowsCount,lblRows,lblSecondMatrix,lblFirstMatrix;
+	private Input M1 = null,M2 = null;
 	public static MainFrame window;
 	Object[][] I1;
 	private Object[][] I2 ;
@@ -422,5 +423,4 @@ public class MainFrame  implements ActionListener  {
 		else if (m == 2 )
 			I2 = a;
 	}
-
 }
