@@ -1,6 +1,7 @@
 package matrix;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
  * 
  *  @author Shayan 			Davari Fard
  *	@author Mohamadrahim    Masumi
- * @param <T>
+ * 
  */
 public class Matrix<T extends Comparable<T>> {
 	/**
@@ -48,8 +49,6 @@ public class Matrix<T extends Comparable<T>> {
 				temp.add(arithmetic.zero());
 			data.add(new LinkedList<T>());
 		}
-		System.out.println(getRows());
-		System.out.println(getColumns());
 	}
 	
 	/**
@@ -67,7 +66,7 @@ public class Matrix<T extends Comparable<T>> {
 	 * @return columns als int
 	 */
 	public int getColumns(){
-		return data.getFirst().size(); // or columns ?
+		return columns; // or columns ?
 	}
 	
 	/**
@@ -87,11 +86,17 @@ public class Matrix<T extends Comparable<T>> {
 	 * @param column
 	 * @param Value
 	 */
-	public void setCell(int row, int column,T Value ){
+	public void setCell(int row, int col,T Value ){
 		LinkedList<T> RowData;
 		RowData = data.get(row);
-		RowData.set(column, Value);
+		
+		if(RowData.size() <= col)
+			RowData.add(Value);
+		else
+			RowData.set(col, Value);
+		
 		data.set(row, RowData);
+
 	}
 	
 	/**
