@@ -110,7 +110,7 @@ public class Matrix<T extends Comparable<T>> {
 		if(sameSize(this, other)){
 			for(int i = 0 ; i < this.getRows() ; i++){
 				for(int j = 0 ; j < this.getColumns() ; j++)
-				aMatrix.setCell(i, j, arithmetic.add(this.getCell(i, j), other.getCell(i, j)));
+				aMatrix.setCell(j, i, arithmetic.add(this.getCell(i, j), other.getCell(i, j)));
 			}
 		}
 		return aMatrix;
@@ -145,7 +145,7 @@ public class Matrix<T extends Comparable<T>> {
 		Matrix<T> tMatrix = new Matrix<T>(this.getColumns(),this.getRows(),arithmetic) ;
 		for(int i = 0 ; i < this.getRows() ; i++){
 			for(int j = 0 ; j < this.getColumns() ; j++)
-				tMatrix.setCell(i, j, this.getCell(j, i));
+				tMatrix.setCell(i, j, this.getCell(i, j));
 		}
 		return tMatrix;
 	}

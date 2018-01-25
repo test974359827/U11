@@ -17,13 +17,18 @@ public class Output {
 	
 	DefaultTableModel mod ;
 	
-	public Output(Object[][] data) {
+	public Output(Object[][] data , int a) {
 		Columns = data[0].length;
 		Rows = data.length;
 		Dimension Framesize = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = Framesize.width, y = Framesize.height;
 		int size = 50;
-		frameOut = new JFrame();
+		if(a == 0 )
+			frameOut = new JFrame("1");
+		if(a == 1 )
+			frameOut = new JFrame("2");
+		if(a == 2)
+			frameOut = new JFrame("Lösung");
 		frameOut.getContentPane().setLayout(null);
 		
 		 col =new Object[Columns];
@@ -35,15 +40,14 @@ public class Output {
 		
 		for(int i = 0 ; i < col.length ; i ++)
 			table.getColumnModel().getColumn(i).setPreferredWidth(size);
-//		for(int i = 0 ; i < Rows ; i ++)
-			table.setRowHeight(size);
+		table.setRowHeight(size);
 			
-			table.setFont(new Font("Arial", Font.PLAIN, 18));
+		table.setFont(new Font("Arial", Font.PLAIN, 18));
 		table.setBounds(15, 16, size*Columns,size*Rows);
 		frameOut.getContentPane().add(table);
 		frameOut.setResizable(false);
 		frameOut.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frameOut.setBounds((x- size*Columns+200)/2,(y-size*Rows + 50)/2,size*Columns+200, size*Rows + 150 );
+		frameOut.setBounds((x- size*Columns+200)/2 + a * 150,(y-size*Rows + 50)/2+ a * 150,size*Columns+200, size*Rows + 150 );
 		frameOut.setVisible(true);
 	}
 	

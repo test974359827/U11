@@ -224,7 +224,7 @@ public class MainFrame  implements ActionListener  {
 		txtR2.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				txtOP(txtR2,e);
+					txtOP(txtR2,e);
 			}
 		});
 		txtR2.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -336,7 +336,7 @@ public class MainFrame  implements ActionListener  {
 		
 		
 		else if(rdbtnTransponse.isSelected()){
-			mat = mat1.add(mat1);
+			mat = mat1.transpose();
 		}
 		
 		else if(rdbtnMaxOrMin.isSelected()){
@@ -349,9 +349,9 @@ public class MainFrame  implements ActionListener  {
 				mat = mat1.resize(Integer.parseInt(txtR2.getText()), Integer.parseInt(txtC2.getText()));
 		}
 		
-		new Output(Mattoobj(mat1));
-		if(mat2 != null) new Output(Mattoobj(mat2));
-		new Output(Mattoobj(mat));
+		new Output(Mattoobj(mat1) , 0);
+		if(mat2 != null) new Output(Mattoobj(mat2) ,1);
+		new Output(Mattoobj(mat) , 2);
 	}
 	
 	
@@ -441,7 +441,6 @@ public class MainFrame  implements ActionListener  {
 	private void txtOP(JTextField TF , KeyEvent e){
 		pressed.clear();
 		pressed.add(e.getKeyChar());
-		
 		if(((int)e.getKeyChar() < 48 || (int)e.getKeyChar() > 57) &&
 				e.getKeyCode() != KeyEvent.VK_BACK_SPACE &&
 				e.getKeyCode() != KeyEvent.VK_ENTER
