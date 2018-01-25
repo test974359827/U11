@@ -19,6 +19,7 @@ public class TestStudent {
 	public void MatrixTest(){
 		
 		
+
 		matrix1.setCell(0, 0,1 );
 		matrix1.setCell(0, 1,2 );
 		matrix1.setCell(1, 0,3 );
@@ -26,7 +27,7 @@ public class TestStudent {
 		
 		
 		
-		
+
 	}
 	public void getCellTest() {
 		
