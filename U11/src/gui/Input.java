@@ -131,7 +131,8 @@ public class Input implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnFinish){
 			MainFrame.window.add(data, matrixNummer);
-			table.getCellEditor().stopCellEditing();
+			if(table.isEditing())
+				table.getCellEditor().stopCellEditing();
 			MainFrame.window.getFrame().setVisible(true);
 			frameIn.setVisible(false);
 		}

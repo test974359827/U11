@@ -149,8 +149,6 @@ public class MainFrame  implements ActionListener  {
 
 		Panel();
 		
-		
-		
 		getFrame().setBounds((x-776)/2, (y-391)/2, 776, 391);
 		getFrame().setVisible(true);
 	}
@@ -256,10 +254,6 @@ public class MainFrame  implements ActionListener  {
 		txtC1.setBounds(183, 89, 100, 25);
 		panel_Input.add(txtC1);
 		
-		RdbF = new ButtonGroup();
-		RdbF.add(rdbtnMin);
-		RdbF.add(rdbtnMax);
-		
 		rdbtnMin = new JRadioButton("Min");
 		rdbtnMin.setBounds(118, 146, 80, 29);
 		rdbtnMin.setSelected(true);
@@ -268,6 +262,10 @@ public class MainFrame  implements ActionListener  {
 		rdbtnMax = new JRadioButton("Max");
 		rdbtnMax.setBounds(225, 146, 155, 29);
 		panel_Input.add(rdbtnMax);
+		
+		RdbF = new ButtonGroup();
+		RdbF.add(rdbtnMin);
+		RdbF.add(rdbtnMax);
 		
 		rdbtnMax.hide();
 		rdbtnMin.hide();
@@ -319,8 +317,11 @@ public class MainFrame  implements ActionListener  {
 					mat2.setCell(i, j, (float)PtoF(I2[i][j]));
 				}
 			}
-			mat = new Matrix<Float>(I1.length,I1[0].length, new FloatArithmetic());
-			mat = mat1.add(mat2);
+			if(mat1.getRows() == mat2.getRows() && mat1.getColumns() == mat2.getColumns()){
+				mat = new Matrix<Float>(I1.length,I1[0].length, new FloatArithmetic());
+				mat = mat1.add(mat2);}
+			else
+				JOptionPane.showMessageDialog(null, "Error : passen Rows mit einander oder Columns mit einander nicht");
 		}
 		
 		else if(rdbtnMultiplikation.isSelected()){
@@ -330,8 +331,11 @@ public class MainFrame  implements ActionListener  {
 					mat2.setCell(i, j, (float)PtoF(I2[i][j]));
 				}
 			}
+			if(mat1.getColumns() == mat2.getRows()){
 			mat = new Matrix<Float>(I1.length,I1[0].length, new FloatArithmetic());
-			mat = mat1.mul(mat2);
+			mat = mat1.mul(mat2);}
+			else
+				JOptionPane.showMessageDialog(null, "Error : passen Rows von erstem Matrix mit Columns von zweitem Matrix nicht");
 		}
 		
 		
@@ -351,7 +355,7 @@ public class MainFrame  implements ActionListener  {
 		
 		new Output(Mattoobj(mat1) , 0);
 		if(mat2 != null) new Output(Mattoobj(mat2) ,1);
-		new Output(Mattoobj(mat) , 2);
+		if(mat != null) new Output(Mattoobj(mat) , 2);
 	}
 	
 	
@@ -441,7 +445,7 @@ public class MainFrame  implements ActionListener  {
 	private void txtOP(JTextField TF , KeyEvent e){
 		pressed.clear();
 		pressed.add(e.getKeyChar());
-		if(((int)e.getKeyChar() < 48 || (int)e.getKeyChar() > 57) &&
+		if(((int)e.getKeyChar() < 43 || (int)e.getKeyChar() > 57) &&
 				e.getKeyCode() != KeyEvent.VK_BACK_SPACE &&
 				e.getKeyCode() != KeyEvent.VK_ENTER
 				){

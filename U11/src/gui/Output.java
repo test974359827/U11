@@ -47,7 +47,7 @@ public class Output {
 		frameOut.getContentPane().add(table);
 		frameOut.setResizable(false);
 		frameOut.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frameOut.setBounds((x- size*Columns+200)/2 + a * 150,(y-size*Rows + 50)/2+ a * 150,size*Columns+200, size*Rows + 150 );
+		frameOut.setBounds((x- size*Columns)/2 + a * 250,(y-size*Rows + 50)/2+ a * 150,size*Columns+200, size*Rows + 150 );
 		frameOut.setVisible(true);
 	}
 	
