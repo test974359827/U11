@@ -46,6 +46,7 @@ public class TestStudent {
     	assertEquals( 4, matrix1.getCell(1,1));
 		
 	}
+    
 	
     public void addTest() {
     	    matrix1.setCell(0, 0,1 );
