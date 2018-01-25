@@ -13,20 +13,20 @@ import java.util.List;
  */
 public class Matrix<T extends Comparable<T>> {
 	/**
-	 * private Atribut als Arithmetic<T> für das Durchführen von arithmetischen Operationen
+	 * private Atribut als Arithmetic<T> fï¿½r das Durchfï¿½hren von arithmetischen Operationen
 	 */
 	private Arithmetic<T> arithmetic= null ;
 	/**
-	 * Private ATribute als LinkedList<LinkedList<t>> enthält die Daten der Matrix und  
-	 * repräsentiert dieäußere LinkedList die Reihen und die innere LinkedList die Spalten der Matrix
+	 * Private ATribute als LinkedList<LinkedList<t>> enthï¿½lt die Daten der Matrix und  
+	 * reprï¿½sentiert dieï¿½uï¿½ere LinkedList die Reihen und die innere LinkedList die Spalten der Matrix
 	 */
 	private LinkedList<LinkedList<T>> data =new LinkedList<LinkedList<T>>() ; 
 	/**
-	 *  private Atribute für Speichern der aktuellen Anzahl der Reihen der Matrix
+	 *  private Atribute fï¿½r Speichern der aktuellen Anzahl der Reihen der Matrix
 	 */
 	private int rows = 0 ; 
 	/**
-	 * private Atribute für Speichern der aktuellen Anzahl der Spalten der Matrix
+	 * private Atribute fï¿½r Speichern der aktuellen Anzahl der Spalten der Matrix
 	 */
 	private int columns = 0 ; 
 
@@ -53,7 +53,7 @@ public class Matrix<T extends Comparable<T>> {
 	}
 	
 	/**
-	 * Getter für Rows 
+	 * Getter fï¿½r Rows 
 	 * 
 	 * @return rows als int
 	 */
@@ -62,20 +62,20 @@ public class Matrix<T extends Comparable<T>> {
 	}
 	
 	/**
-	 * Getter für Columns 
+	 * Getter fï¿½r Columns 
 	 * 
 	 * @return columns als int
 	 */
 	public int getColumns(){
-		return data.getFirst().size(); // or columns ?
+		return columns; // or columns ?
 	}
 	
 	/**
-	 * Getter : gibt den Wert der Zelle zurück
+	 * Getter : gibt den Wert der Zelle zurï¿½ck
 	 * 
 	 * @param row
 	 * @param column
-	 * @return gibt den Wert der Zelle zurück als T 
+	 * @return gibt den Wert der Zelle zurï¿½ck als T 
 	 */
 	public T getCell(int row, int column){
 		return data.get(row).get(column); 
@@ -90,12 +90,12 @@ public class Matrix<T extends Comparable<T>> {
 	public void setCell(int row, int column,T Value ){
 		LinkedList<T> RowData;
 		RowData = data.get(row);
-		RowData.set(column, Value);
-		data.set(row, RowData);
+		RowData.add(column, Value);
+		data.add(row, RowData);
 	}
 	
 	/**
-	 * add :gibt das Ergebnis der Addition mit other(@param) zurück 
+	 * add :gibt das Ergebnis der Addition mit other(@param) zurï¿½ck 
 	 * 
 	 * @param other
 	 * @return
@@ -112,7 +112,7 @@ public class Matrix<T extends Comparable<T>> {
 	}
 	
 	/**
-	 * mul : die gibt das Ergebnis der Multiplikation mit other(@param) zurück
+	 * mul : die gibt das Ergebnis der Multiplikation mit other(@param) zurï¿½ck
 	 * 
 	 * @param other
 	 * @return
@@ -132,7 +132,7 @@ public class Matrix<T extends Comparable<T>> {
 	}
 	
 	/**
-	 * transpose : Diese bildet die transponierte Matrix zur aktuellen Matrix und gibt diese zurück
+	 * transpose : Diese bildet die transponierte Matrix zur aktuellen Matrix und gibt diese zurï¿½ck
 	 * 
 	 * @return
 	 */
@@ -146,8 +146,9 @@ public class Matrix<T extends Comparable<T>> {
 	}
 	
 	/**
-	 * getMinMax : gibt entweder den größten oder den kleinsten Wert der Matrix zurück. 
-	 * Ist der Boolean min(@param) true soll der kleinste Wert der Matrix zurückgegeben werden
+	 * getMinMax : gibt entweder den grï¿½ï¿½ten oder den kleinsten Wert der Matrix zurï¿½ck. 
+	 * Ist der Boolean min(@param) true soll der kleinste Wert der Matrix zurï¿½ckgegeben werden
+	 * 
 	 * 
 	 * @param min
 	 * @return
@@ -168,7 +169,7 @@ public class Matrix<T extends Comparable<T>> {
 	}
 
 	/**
-	 * resize : die gibt eine neue Matrix mit entsprechend veränderter Größe zurück
+	 * resize : die gibt eine neue Matrix mit entsprechend verï¿½nderter Grï¿½ï¿½e zurï¿½ck
 	 * 
 	 * @param rows
 	 * @param columns
