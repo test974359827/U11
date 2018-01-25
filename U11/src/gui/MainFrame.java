@@ -110,7 +110,6 @@ public class MainFrame  implements ActionListener  {
 		rdbtnAddiotion.setFont(new Font("Arial", Font.PLAIN, 18));
 		rdbtnAddiotion.addActionListener(this);
 		rdbtnAddiotion.setBounds(10, 5, 144, 60);
-//		rdbtnAddiotion.addKeyListener(this);
 		rdbtnAddiotion.setSelected(true);
 		panel.add(rdbtnAddiotion);
 		
@@ -118,28 +117,24 @@ public class MainFrame  implements ActionListener  {
 		rdbtnMultiplikation.setFont(new Font("Arial", Font.PLAIN, 18));
 		rdbtnMultiplikation.addActionListener(this);
 		rdbtnMultiplikation.setBounds(10, 65, 144, 60);
-//		rdbtnMultiplikation.addKeyListener(this);
 		panel.add(rdbtnMultiplikation);
 		
 		rdbtnTransponse = new JRadioButton("Transponse");
 		rdbtnTransponse.setFont(new Font("Arial", Font.PLAIN, 18));
 		rdbtnTransponse.addActionListener(this);
 		rdbtnTransponse.setBounds(10, 125, 144, 60);
-//		rdbtnTransponse.addKeyListener(this);
 		panel.add(rdbtnTransponse);
 		
 		rdbtnResize = new JRadioButton("Resize");
 		rdbtnResize.setFont(new Font("Arial", Font.PLAIN, 18));
 		rdbtnResize.addActionListener(this);
 		rdbtnResize.setBounds(10, 185, 144, 60);
-//		rdbtnResize.addKeyListener(this);
 		panel.add(rdbtnResize);
 		
 		rdbtnMaxOrMin = new JRadioButton("Max or Min");
 		rdbtnMaxOrMin.setFont(new Font("Arial", Font.PLAIN, 18));
 		rdbtnMaxOrMin.addActionListener(this);
 		rdbtnMaxOrMin.setBounds(10, 245, 144, 60);
-//		rdbtnMaxOrMin.addKeyListener(this);
 		panel.add(rdbtnMaxOrMin);
 		
 		rdbG = new ButtonGroup();
@@ -170,9 +165,7 @@ public class MainFrame  implements ActionListener  {
 		panel_2 = new JPanel();
 		panel_2.setBounds(0, 0, 770, 360);
 		getFrame().getContentPane().add(panel_2);
-//		btnNeu.addKeyListener(this);
 		btnNeu.addActionListener(this);
-//		btnRechnen.addKeyListener(this);
 		btnRechnen.addActionListener(this);
 
 		Panel();
@@ -310,45 +303,37 @@ public class MainFrame  implements ActionListener  {
 	}
 	Matrix<Float> mat;
 	public void rechnen(){
-		System.out.println(I1[0].length);
 		Matrix<Float> mat1 = new Matrix<>(I1.length,I1[0].length, new FloatArithmetic());
-		dataF1 = arraytoList(I1);
 		for(int i = 0 ;i< I1.length ; i++){
-			for(int j = 0 ;j< I1[i].length ; j++)
-				mat1.setCell(i, j, dataF1.get(i).get(j));
+			for(int j = 0 ;j< I1[i].length ; j++){
+				mat1.setCell(i, j, (float)PtoF(I1[i][j]));
+				
+			}
 		}
 		
 		if(rdbtnAddiotion.isSelected()){
 			Matrix<Float> mat2 = new Matrix<>(I2.length,I2[0].length, new FloatArithmetic());
-			dataF1 = arraytoList(I2);
-			for(int i = 0 ;i< I1.length ; i++){
-				for(int j = 0 ;j< I1[i].length ; j++)
-					mat2.setCell(i, j, dataF1.get(i).get(j));
+			for(int i = 0 ;i< I2.length ; i++){
+				for(int j = 0 ;j< I2[i].length ; j++){
+					mat2.setCell(i, j, (float)PtoF(I2[i][j]));
+				}
 			}
 			mat = new Matrix<Float>(I1.length,I1[0].length, new FloatArithmetic());
 			mat = mat1.add(mat2);
 		}
+
 		new Output(Mattoobj(mat));
 	}
 	
 	
-	private LinkedList<LinkedList<Float>> arraytoList(Object[][] Array){
-		LinkedList<Float> temp = new LinkedList<Float>();
-		LinkedList<LinkedList<Float>> a = new LinkedList<LinkedList<Float>>();
-		for(int i = 0 ;i< Array.length ; i++){
-			for(int j = 0 ;j< Array[i].length ; j++)
-				temp.add(PtoF(Array[i][j])) ;
-			a.add(temp);
-		}
-		return a ;
-	}
 	
-	@SuppressWarnings("null")
 	public Object[][] Mattoobj(Matrix<Float> a ){
-		Object[][] temp = null ;
+		Object[][] temp = new Object[a.getRows()][a.getColumns()] ;
 		for(int i = 0 ;i< a.getRows() ; i++)
-			for(int j = 0 ;j< a.getColumns() ; j++)
+			for(int j = 0 ;j< a.getColumns() ; j++){
 				temp[i][j] = a.getCell(i, j);
+			
+			}
 		return temp;
 	}
 	
@@ -373,7 +358,6 @@ public class MainFrame  implements ActionListener  {
 				I1 = new Object[Integer.parseInt(txtR1.getText())][Integer.parseInt(txtC1.getText())];
 
 			} catch (Exception e2) {
-				System.out.println(txtR1.getText()+txtC1.getText());
 				MSG("Bitte geben Sie eine Zahl ein");
 			}
 		}
@@ -423,7 +407,6 @@ public class MainFrame  implements ActionListener  {
 						Ja = false;
 					} catch (Exception e2) {
 						a++;
-						System.out.println("h");
 						txt2 = new String(c,0,c.length-a);
 						TF.setText(txt2);
 					}
@@ -439,7 +422,7 @@ public class MainFrame  implements ActionListener  {
 	/**
 	 * Diese Methode zeigt die Nachrichten in dem GUI an. 
 	 * @param a 
-	 * 		a enthält die Nachricht als String 
+	 * 		a enthâ€°lt die Nachricht als String 
 	 */
 	public void MSG(String a){
 		JOptionPane.showMessageDialog(null,a);
