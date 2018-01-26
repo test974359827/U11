@@ -43,22 +43,57 @@ import java.awt.event.KeyEvent;
  */
 public class Input implements ActionListener {
 
+	/**
+	 * 
+	 */
 	private JFrame frameIn ;
+	/**
+	 * 	Für tabelle
+	 */
 	private JTable table;
+	/**
+	 * 	Für Buttond in frame
+	 */
 	private JButton btnNew , btnFinish;
+	/**
+	 * 	Für Dateien für Tabelle
+	 */
 	private Object[][] data ;
+	/**
+	 * 	Heaader der Tabelle
+	 */
 	private Object[] col ;
+	/**
+	 * 	Anzahl Rows und Columns
+	 */
 	private int Rows,Columns;
+	/**
+	 * 	Für NUmer des Matrixes
+	 */
 	private int matrixNummer;
+	/**
+	 * MOdel für tabelle
+	 */
 	DefaultTableModel mod ;
+	/**
+	 *  Für gedrückte Taste
+	 */
     Set<Character> pressed = new HashSet<Character>();
 
+    
+    /**
+	 * Create the application.
+	 */
 	public Input(int a ,int Rows, int Columns) {
 		matrixNummer = a;
 		this.Rows = Rows;
 		this.Columns = Columns;
 		run();
 	}
+	
+	/**
+	 * Initialize the contents of the frame.
+	 */
 	private void run(){
 		
 		Dimension Framesize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -120,12 +155,17 @@ public class Input implements ActionListener {
 		MainFrame.window.getFrame().setVisible(false);
 	}
 
+	/**
+	 * für restart des Frames
+	 */
 	private void rerun(){
 		mod.setDataVector(data, col);
 		table.setModel(mod);
-		
 	}
 	
+	/*
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnFinish){
