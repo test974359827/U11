@@ -20,23 +20,74 @@ import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
 import javax.swing.JTextField;
+
+
 /**
+ * @author 			Shayan		 Davari fard
+ * @author   Mohammadrahim  	 Masoumi
+ * @author 			 Arian 		 Tashakkornojehdehi
  * 
- *
+ * @version 1
  */
 public class MainFrame  implements ActionListener  {
 
-	
+	/**
+	 *  Frame for Graphic Interface
+	 */
 	private JFrame frame;
+	
+	/**
+	 *  für Panels in Frame
+	 */
 	private JPanel panel_Input,panel_2;
+	
+	/**
+	 *  für Buttons in Frame and Panels
+	 */
 	private JButton btnAddFirst,btnAddSecond,btnNeu,btnRechnen;
+	
+	/**
+	 * 	Für Auswahl der Action 
+	 */
 	private JRadioButton rdbtnMax,rdbtnMin,rdbtnTransponse,rdbtnAddiotion, rdbtnMultiplikation,rdbtnMaxOrMin,rdbtnResize;
+	
+	/**
+	 *  Für Texte Eingaben 
+	 */
 	private JTextField txtR1,txtC1,txtC2,txtR2;
+	
+	/**
+	 * Für Labels
+	 */
 	private JLabel label_1,label_2,lblRowsCount,lblRows,lblSecondMatrix,lblFirstMatrix;
+	
+	/**
+	 * 	Instanz für Main Frame 
+	 */
 	public static MainFrame window;
-	Object[][] I1;
-	private Object[][] I2 ;
-	ButtonGroup rdbG , RdbF;
+	
+	/**
+	 * 	SpecherPlatz Für Matrix 1 und 2 von OutPut Klasse
+	 */
+	private Object[][] I2 ,I1;
+	
+	/**
+	 * 	für GP von RadioButton
+	 */
+	private ButtonGroup rdbG , RdbF;
+	
+	/**
+	 *  Für gedruckte Tasten
+	 */
+	private final Set<Character> pressed = new HashSet<Character>();
+
+	/**
+	 * Für Ergebbnis 
+	 */
+	private Matrix<Float> mat;
+	
+	
+	
 	
 	/**
 	 * Launch the application.
@@ -64,26 +115,27 @@ public class MainFrame  implements ActionListener  {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("deprecation")
 	private void initialize() {
 		Dimension Framesize = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = Framesize.width, y = Framesize.height;
 		
 		frame = new JFrame();
-		getFrame().setResizable(false);
-		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getFrame().getContentPane().setLayout(null);
+		frame.setResizable(false);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panel.setLayout(null);
 		panel.setBounds(20, 20, 170, 310);
-		getFrame().getContentPane().add(panel);
+		frame.getContentPane().add(panel);
 		
 		panel_Input = new JPanel();
 		panel_Input.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panel_Input.setLayout(null);
 		panel_Input.setBounds(200, 20, 420, 310);
-		getFrame().getContentPane().add(panel_Input);
+		frame.getContentPane().add(panel_Input);
 		
 		rdbtnAddiotion = new JRadioButton("Addiotion");
 		rdbtnAddiotion.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -127,7 +179,7 @@ public class MainFrame  implements ActionListener  {
 		panel_1.setBounds(630, 20, 120, 310);
 		panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panel_1.setLayout(null);
-		getFrame().getContentPane().add(panel_1);
+		frame.getContentPane().add(panel_1);
 		
 		btnRechnen = new JButton("Rechnen");
 		btnRechnen.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -143,25 +195,10 @@ public class MainFrame  implements ActionListener  {
 		
 		panel_2 = new JPanel();
 		panel_2.setBounds(0, 0, 770, 360);
-		getFrame().getContentPane().add(panel_2);
+		frame.getContentPane().add(panel_2);
 		btnNeu.addActionListener(this);
 		btnRechnen.addActionListener(this);
 
-		Panel();
-		
-		getFrame().setBounds((x-776)/2, (y-391)/2, 776, 391);
-		getFrame().setVisible(true);
-	}
-	
-	public void addPanel(){
-		
-		
-	}
-	
-	@SuppressWarnings("deprecation")
-	public void Panel(){
-		
-		
 		String lblString = "Matrix" , btnMatrix = "Add";
 		String lblR = "Rows count :" , lblC = "Columns count :";
 		lblSecondMatrix = new JLabel("Second Matrix");
@@ -270,42 +307,22 @@ public class MainFrame  implements ActionListener  {
 		rdbtnMax.hide();
 		rdbtnMin.hide();
 		
+		frame.setBounds((x-776)/2, (y-391)/2, 776, 391);
+		frame.setVisible(true);
 	}
 	
 	
 	
-	@SuppressWarnings("deprecation")
-	public void change(boolean ob){
-		String lblR = "Rows count :" , lblC = "Columns count :";
-		if(!ob){
-			lblSecondMatrix.hide();
-			btnAddSecond.hide();
-			label_1.hide();
-			label_2.hide();
-			txtC2.hide();
-			txtR2.hide();
-		}
-		else{
-			lblSecondMatrix.show();
-			btnAddSecond.show();
-			label_1.setText(lblR);
-			label_2.setText(lblC);
-			label_1.show();
-			label_2.show();
-			txtC2.show();
-			txtR2.show();
-		}
-		rdbtnMax.hide();
-		rdbtnMin.hide();
-	}
-	Matrix<Float> mat;
+
+	/**
+	 * Für Rechnen 
+	 */
 	public void rechnen(){
-		
 		Matrix<Float> mat1 = new Matrix<>(I1.length,I1[0].length, new FloatArithmetic());
 		
 		for(int i = 0 ;i< I1.length ; i++){
 			for(int j = 0 ;j< I1[i].length ; j++){
-				mat1.setCell(i, j, (float)PtoF(I1[i][j]));
+				mat1.setCell(i, j, (float)ObjectToFloat(I1[i][j]));
 			}
 		}
 		Matrix<Float> mat2 = null ;
@@ -314,7 +331,7 @@ public class MainFrame  implements ActionListener  {
 			mat2 = new Matrix<>(I2.length,I2[0].length, new FloatArithmetic());
 			for(int i = 0 ;i< I2.length ; i++){
 				for(int j = 0 ;j< I2[i].length ; j++){
-					mat2.setCell(i, j, (float)PtoF(I2[i][j]));
+					mat2.setCell(i, j, (float)ObjectToFloat(I2[i][j]));
 				}
 			}
 			if(mat1.getRows() == mat2.getRows() && mat1.getColumns() == mat2.getColumns()){
@@ -328,7 +345,7 @@ public class MainFrame  implements ActionListener  {
 			mat2 = new Matrix<>(I2.length,I2[0].length, new FloatArithmetic());
 			for(int i = 0 ;i< I2.length ; i++){
 				for(int j = 0 ;j< I2[i].length ; j++){
-					mat2.setCell(i, j, (float)PtoF(I2[i][j]));
+					mat2.setCell(i, j, (float)ObjectToFloat(I2[i][j]));
 				}
 			}
 			if(mat1.getColumns() == mat2.getRows()){
@@ -353,24 +370,34 @@ public class MainFrame  implements ActionListener  {
 				mat = mat1.resize(Integer.parseInt(txtR2.getText()), Integer.parseInt(txtC2.getText()));
 		}
 		
-		new Output(Mattoobj(mat1) , 0);
-		if(mat2 != null) new Output(Mattoobj(mat2) ,1);
-		if(mat != null) new Output(Mattoobj(mat) , 2);
+		new Output(MatrixToObject(mat1) , 0);
+		if(mat2 != null) new Output(MatrixToObject(mat2) ,1);
+		if(mat != null) new Output(MatrixToObject(mat) , 2);
 	}
 	
 	
-	
-	public Object[][] Mattoobj(Matrix<Float> a ){
+	/**
+	 * für Umwandeln von Matrix ins Objekt[][]
+	 * 
+	 * @param a als Matrix<Float>
+	 * @return  temp als Obkect[][] 
+	 */
+	public Object[][] MatrixToObject(Matrix<Float> a ){
 		Object[][] temp = new Object[a.getRows()][a.getColumns()] ;
 		for(int i = 0 ;i< a.getRows() ; i++)
 			for(int j = 0 ;j< a.getColumns() ; j++){
 				temp[i][j] = a.getCell(i, j);
-			
 			}
 		return temp;
 	}
 	
-	private Float PtoF(Object obj){
+	/**
+	 * 	für Umwandeln von Object in Float
+	 * 
+	 * @param obj als Object
+	 * @return temp als Float
+	 */
+	private Float ObjectToFloat(Object obj){
 		float temp;
 		try {
 			temp = Float.parseFloat((String)obj);
@@ -380,6 +407,10 @@ public class MainFrame  implements ActionListener  {
 		return temp;
 	}
 
+	
+	/*
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnRechnen)
 			rechnen();//TODO
@@ -414,7 +445,40 @@ public class MainFrame  implements ActionListener  {
 		else if(e.getSource() == rdbtnMaxOrMin)
 			change3();
 	}
+
+	/**
+	 *  Für Hiden oder zeigen den Teilen des Frames abhängig von RadioButthon
+	 *  
+	 * @param ob als Boolean 
+	 */
+	@SuppressWarnings("deprecation")
+	public void change(boolean ob){
+		String lblR = "Rows count :" , lblC = "Columns count :";
+		if(!ob){
+			lblSecondMatrix.hide();
+			btnAddSecond.hide();
+			label_1.hide();
+			label_2.hide();
+			txtC2.hide();
+			txtR2.hide();
+		}
+		else{
+			lblSecondMatrix.show();
+			btnAddSecond.show();
+			label_1.setText(lblR);
+			label_2.setText(lblC);
+			label_1.show();
+			label_2.show();
+			txtC2.show();
+			txtR2.show();
+		}
+		rdbtnMax.hide();
+		rdbtnMin.hide();
+	}
 	
+	/**
+	 *  Für Hiden oder zeigen den Teilen des Frames abhängig von RadioButthon
+	 */
 	@SuppressWarnings("deprecation")
 	private void change2() {
 		String lblR = "sub Rows :" , lblC = "sub Columns :";
@@ -429,6 +493,10 @@ public class MainFrame  implements ActionListener  {
 		rdbtnMax.hide();
 		rdbtnMin.hide();
 	}
+	
+	/**
+	 *  Für Hiden oder zeigen den teilen des Frames abhängig von RadioButthon
+	 */
 	@SuppressWarnings("deprecation")
 	private void change3() {
 		rdbtnMax.show();
@@ -440,8 +508,13 @@ public class MainFrame  implements ActionListener  {
 		txtC2.hide();
 		txtR2.hide();
 	}
-	private final Set<Character> pressed = new HashSet<Character>();
 	
+	/**
+	 * Für TextBox
+	 * 
+	 * @param TF als JTextField
+	 * @param e als KeyEvent
+	 */
 	private void txtOP(JTextField TF , KeyEvent e){
 		pressed.clear();
 		pressed.add(e.getKeyChar());
@@ -478,16 +551,16 @@ public class MainFrame  implements ActionListener  {
 	/**
 	 * Diese Methode zeigt die Nachrichten in dem GUI an. 
 	 * @param a 
-	 * 		a enthâ€°lt die Nachricht als String 
+	 * 		a enthält die Nachricht als String 
 	 */
 	public void MSG(String a){
 		JOptionPane.showMessageDialog(null,a);
 	}
 	
-	public void fv(boolean a){
-		getFrame().setVisible(a);
-	}
-
+	/**
+	 * getter für frame
+	 * @return frame
+	 */
 	public JFrame getFrame() {
 		return frame;
 	}
