@@ -43,6 +43,15 @@ public class Matrix<T extends Comparable<T>> {
 		this.rows = rows;
 		this.columns= columns;
 		this.arithmetic = arithmetic;
+		
+			LinkedList<T> temp = new LinkedList<T>();
+			LinkedList<T> temp1 = new LinkedList<T>();
+			for(int i = 0 ;i< rows ; i++){
+				temp.clear();
+				for(int j = 0 ;j< columns ; j++)
+					temp.add(arithmetic.zero());
+				data.add(temp);
+			}
 	}
 	
 	/**
@@ -51,7 +60,7 @@ public class Matrix<T extends Comparable<T>> {
 	 * @return rows als int
 	 */
 	public int getRows(){
-		return rows;
+		return data.size();
 	}
 	
 	/**
@@ -60,8 +69,9 @@ public class Matrix<T extends Comparable<T>> {
 	 * @return columns als int
 	 */
 	public int getColumns(){
-		return columns;
+		return data.getFirst().size();
 	}
+	
 	
 	/**
 	 * Getter : gibt den Wert der Zelle zur¸ck
@@ -81,14 +91,7 @@ public class Matrix<T extends Comparable<T>> {
 	 * @param Value
 	 */
 	public void setCell(int row, int col,T Value ){
-		if(data.size() == 0){
-			LinkedList<T> temp = new LinkedList<T>();
-			for(int i = 0 ;i< rows ; i++){
-				for(int j = 0 ;j< columns ; j++)
-					temp.add(arithmetic.zero());
-				data.add(new LinkedList<T>());
-			}
-		}
+		
 		
 		LinkedList<T> RowData;
 		RowData = data.get(row);
