@@ -46,18 +46,17 @@ public class Matrix<T extends Comparable<T>> {
 		this.columns= columns;
 		this.arithmetic = arithmetic;
 		
-			
-//			LinkedList<T> temp1 = new LinkedList<T>();
-			for(int i = 0 ;i< rows ; i++){
-				LinkedList<T> temp = new LinkedList<T>();
-				for(int j = 0 ;j< columns ; j++)
-					temp.add(arithmetic.zero());
-				data.add(temp);
-			}
+		// Anfangswert ( Alle Zellen = 0 )			
+		for(int i = 0 ;i< rows ; i++){
+			LinkedList<T> temp = new LinkedList<T>();
+			for(int j = 0 ;j< columns ; j++)
+				temp.add(arithmetic.zero());
+			data.add(temp);
+		}
 	}
 	
 	/**
-	 * Getter fÂ¸r Rows 
+	 * Getter für Rows 
 	 * 
 	 * @return rows als int
 	 */
@@ -66,7 +65,7 @@ public class Matrix<T extends Comparable<T>> {
 	}
 	
 	/**
-	 * Getter fÂ¸r Columns 
+	 * Getter für Columns 
 	 * 
 	 * @return columns als int
 	 */
@@ -76,25 +75,23 @@ public class Matrix<T extends Comparable<T>> {
 	
 	
 	/**
-	 * Getter : gibt den Wert der Zelle zurÂ¸ck
+	 * Getter : gibt den Wert der Zelle zurück
 	 * 
 	 * @param row
 	 * @param column
-	 * @return gibt den Wert der Zelle zurÂ¸ck als T 
+	 * @return gibt den Wert der Zelle zurück als T 
 	 */
 	public T getCell(int row, int column){
 		return data.get(row).get(column); 
 	}
 	
 	/**
-	 * Setter 
+	 * Setter  für gewünschte Zelle
 	 * @param row
 	 * @param column
 	 * @param Value
 	 */
 	public void setCell(int row, int col,T Value ){
-		
-		
 		LinkedList<T> RowData;
 		RowData = data.get(row);
 		
@@ -108,10 +105,10 @@ public class Matrix<T extends Comparable<T>> {
 	}
 	
 	/**
-	 * add :gibt das Ergebnis der Addition mit other(@param) zurÂ¸ck 
+	 * add :gibt das Ergebnis der Addition mit other(@param) zurück 
 	 * 
 	 * @param other
-	 * @return
+	 * @return ein Matrix<T>
 	 */
 	public Matrix<T> add(Matrix<T> other){
 		Matrix<T> aMatrix = new Matrix<T>(this.getRows(),this.getColumns(),arithmetic);
@@ -131,13 +128,14 @@ public class Matrix<T extends Comparable<T>> {
 	/**
 	 * mul : die gibt das Ergebnis der Multiplikation mit other(@param) zurÂ¸ck
 	 * 
-	 * @param other
-	 * @return
+	 * @param other als Matrix<T>
+	 * @return ein Matrix<T>
 	 */
 	public Matrix<T> mul(Matrix<T> other){
 		
 		Matrix<T> mMatrix = new Matrix<T>(this.getRows(),other.getColumns(),arithmetic);
 		
+//		
 		if(obMul(other)){
 			for(int i = 0 ;i< rows ; i++){
 				for(int j = 0 ;j< other.getColumns() ; j++){
@@ -157,7 +155,7 @@ public class Matrix<T extends Comparable<T>> {
 	/**
 	 * transpose : Diese bildet die transponierte Matrix zur aktuellen Matrix und gibt diese zurÂ¸ck
 	 * 
-	 * @return
+	 * @return ein Matrix<T>
 	 */
 	public Matrix<T> transpose(){
 		Matrix<T> tMatrix = new Matrix<T>(this.getColumns(),this.getRows(),arithmetic) ;
@@ -171,11 +169,11 @@ public class Matrix<T extends Comparable<T>> {
 	}
 	
 	/**
-	 * getMinMax : gibt entweder den grË†ï¬‚ten oder den kleinsten Wert der Matrix zurÂ¸ck. 
+	 * getMinMax : gibt entweder den grË†ï¬‚ten oder den kleinsten Wert der Matrix zurück. 
 	 * Ist der Boolean min(@param) true soll der kleinste Wert der Matrix zurÂ¸ckgegeben werden
 	 * 
-	 * @param min
-	 * @return
+	 * @param min als Boolean
+	 * @return ein Matrix<T>
 	 */
 	public Matrix<T> getMinMax(boolean min){
 		List<T> temp = new ArrayList<T>();
@@ -195,9 +193,9 @@ public class Matrix<T extends Comparable<T>> {
 	/**
 	 * resize : die gibt eine neue Matrix mit entsprechend verâ€°nderter GrË†ï¬‚e zurÂ¸ck
 	 * 
-	 * @param rows
-	 * @param columns
-	 * @return
+	 * @param rows als int
+	 * @param columns als int
+	 * @return ein Matrix<T>
 	 */
 	public Matrix<T> resize(int rows, int columns){
 		if(this.rows + rows <= 0)
@@ -219,18 +217,16 @@ public class Matrix<T extends Comparable<T>> {
 	
 	
 	/**
-	 * 
-	 * @param a
+	 * 	es überprüft, ob Rows von diese Matrix und von Übergabe zusammen und auch Columns von diese Matrix und von Übergabe zusammen gleich sind oder nicht 
 	 * @param b
-	 * @return
+	 * @return boolean 
 	 */
 	public boolean sameSize(Matrix<T> b){
 		return (getRows() == b.getRows() && getColumns() == b.getColumns());
 	}
 	
 	/**
-	 * 
-	 * @param a
+	 *  es überprüft, ob Columns von diese Matrix mit Rows von Über gabe gleich sind oder nicht
 	 * @param b
 	 * @return
 	 */
