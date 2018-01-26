@@ -51,7 +51,7 @@ public class Matrix<T extends Comparable<T>> {
 	 * @return rows als int
 	 */
 	public int getRows(){
-		return data.size(); // or rows ? 
+		return rows;
 	}
 	
 	/**
@@ -60,7 +60,7 @@ public class Matrix<T extends Comparable<T>> {
 	 * @return columns als int
 	 */
 	public int getColumns(){
-		return columns; // or columns ?
+		return columns;
 	}
 	
 	/**
@@ -146,10 +146,15 @@ public class Matrix<T extends Comparable<T>> {
 	 * @return
 	 */
 	public Matrix<T> transpose(){
+		System.out.println(this.getColumns());
 		Matrix<T> tMatrix = new Matrix<T>(this.getColumns(),this.getRows(),arithmetic) ;
 		for(int i = 0 ; i < this.getRows() ; i++){
-			for(int j = 0 ; j < this.getColumns() ; j++)
-				tMatrix.setCell(j, i, this.getCell(i, j));
+			for(int j = 0 ; j < this.getColumns() ; j++){
+			System.out.println("i : "+ i + " j " + j + "       "+tMatrix.getRows());
+				tMatrix.setCell(j, i, data.get(j).get(i));
+				System.out.println("ok");
+			
+			}
 		}
 		return tMatrix;
 	}
