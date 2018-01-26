@@ -166,7 +166,6 @@ public class TestStudent {
     	
 			assertEquals(matrix6, matrix1.resize(1, -1));
 
-			
     }
 	
 }
