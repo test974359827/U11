@@ -115,14 +115,16 @@ public class Matrix<T extends Comparable<T>> {
 	 */
 	public Matrix<T> add(Matrix<T> other){
 		Matrix<T> aMatrix = new Matrix<T>(this.getRows(),this.getColumns(),arithmetic);
-		if(sameSize(this, other)){
+		
+		
+		if(sameSize(other)){
 			for(int i = 0 ; i < this.getRows() ; i++){
 				for(int j = 0 ; j < this.getColumns() ; j++)
 				aMatrix.setCell(i, j, arithmetic.add(this.getCell(i, j), other.getCell(i, j)));
 			}
 		}
 		else
-			JOptionPane.showMessageDialog(null, "Error: 2 Matrix haben keine gleiche Dimensionalen");
+			JOptionPane.showMessageDialog(null, "Error: muss gleiche Große haben");
 		return aMatrix;
 	}
 	
@@ -133,16 +135,21 @@ public class Matrix<T extends Comparable<T>> {
 	 * @return
 	 */
 	public Matrix<T> mul(Matrix<T> other){
+		
 		Matrix<T> mMatrix = new Matrix<T>(this.getRows(),other.getColumns(),arithmetic);
-		if(obMul(this, other)){
-			for(int i = 0 ; i < this.getRows() ; i++){
-				for(int j = 0 ; j < other.getColumns() ; j++){
-					mMatrix.setCell(i, j, arithmetic.zero());
+		
+		if(obMul(other)){
+			for(int i = 0 ;i< rows ; i++){
+				for(int j = 0 ;j< other.getColumns() ; j++){
+					Matrix<T> mTemp = new Matrix<T>(1,1,arithmetic);
 					for(int x = 0 ; x < other.getRows() ; x++)
-						mMatrix.setCell(i, j, arithmetic.add(mMatrix.getCell(i, j), arithmetic.mul(this.getCell(i, x), other.getCell(x, j))));
+						mTemp.setCell(0, 0, arithmetic.add(mMatrix.getCell(i, j), arithmetic.mul(this.getCell(i, x), other.getCell(x, j))));
+					mMatrix.setCell(i, j, mTemp.getCell(0, 0));
 				}
 			}
 		}
+		else
+			JOptionPane.showMessageDialog(null, "Error: muss Columns von 1 mit Rows von 2 gleich sein");
 		
 		return mMatrix;
 	}
@@ -153,13 +160,10 @@ public class Matrix<T extends Comparable<T>> {
 	 * @return
 	 */
 	public Matrix<T> transpose(){
-		System.out.println(this.getColumns());
 		Matrix<T> tMatrix = new Matrix<T>(this.getColumns(),this.getRows(),arithmetic) ;
 		for(int i = 0 ; i < this.getRows() ; i++){
 			for(int j = 0 ; j < this.getColumns() ; j++){
-			System.out.println("i : "+ i + " j " + j + "       "+tMatrix.getRows());
 				tMatrix.setCell(j, i, data.get(j).get(i));
-				System.out.println("ok");
 			
 			}
 		}
@@ -220,8 +224,8 @@ public class Matrix<T extends Comparable<T>> {
 	 * @param b
 	 * @return
 	 */
-	public boolean sameSize(Matrix<T> a,Matrix<T> b){
-		return (a.getRows() == b.getRows() && a.getColumns() == b.getColumns());
+	public boolean sameSize(Matrix<T> b){
+		return (getRows() == b.getRows() && getColumns() == b.getColumns());
 	}
 	
 	/**
@@ -230,7 +234,7 @@ public class Matrix<T extends Comparable<T>> {
 	 * @param b
 	 * @return
 	 */
-	public boolean obMul(Matrix<T> a,Matrix<T> b){
-		return (a.getColumns() == b.getRows());
+	public boolean obMul(Matrix<T> b){
+		return (getColumns() == b.getRows());
 	}
 }
