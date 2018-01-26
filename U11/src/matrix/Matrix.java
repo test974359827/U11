@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 /**
  * @author 			Shayan		 Davari fard
  * @author   Mohammadrahim  	 Masoumi
@@ -119,6 +121,8 @@ public class Matrix<T extends Comparable<T>> {
 				aMatrix.setCell(i, j, arithmetic.add(this.getCell(i, j), other.getCell(i, j)));
 			}
 		}
+		else
+			JOptionPane.showMessageDialog(null, "Error: 2 Matrix haben keine gleiche Dimensionalen");
 		return aMatrix;
 	}
 	
@@ -216,7 +220,7 @@ public class Matrix<T extends Comparable<T>> {
 	 * @param b
 	 * @return
 	 */
-	private boolean sameSize(Matrix<T> a,Matrix<T> b){
+	public boolean sameSize(Matrix<T> a,Matrix<T> b){
 		return (a.getRows() == b.getRows() && a.getColumns() == b.getColumns());
 	}
 	
@@ -226,7 +230,7 @@ public class Matrix<T extends Comparable<T>> {
 	 * @param b
 	 * @return
 	 */
-	private boolean obMul(Matrix<T> a,Matrix<T> b){
+	public boolean obMul(Matrix<T> a,Matrix<T> b){
 		return (a.getColumns() == b.getRows());
 	}
 }
