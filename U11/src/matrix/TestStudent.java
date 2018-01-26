@@ -19,7 +19,10 @@ public class TestStudent {
 	@Test
 	public void MatrixTest(){
 		
-		
+		Matrix<Integer> mat1= new Matrix<Integer>(2, 2, new IntegerArithmetic());
+		Matrix<Integer> mat2= new Matrix<Integer>(2, 2, new IntegerArithmetic());
+
+		assertEquals(mat1, mat2);
 
 		matrix1.setCell(0, 0,1 );
 		matrix1.setCell(0, 1,2 );
