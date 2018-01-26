@@ -9,6 +9,15 @@ import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+
+
+/**
+ * @author 			Shayan		 Davari fard
+ * @author   Mohammadrahim  	 Masoumi
+ * @author 			 Arian 		 Tashakkornojehdehi
+ * 
+ * @version 1
+ */
 public class Output {
 	private JFrame frameOut ;
 	private JTable table;

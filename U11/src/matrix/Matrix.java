@@ -1,16 +1,16 @@
 package matrix;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * @author 			Shayan		 Davari fard
+ * @author   Mohammadrahim  	 Masoumi
+ * @author 			 Arian 		 Tashakkornojehdehi
  * 
- *  @author Shayan 			Davari Fard
- *	@author Mohamadrahim    Masumi
- * 
+ * @version 1
  */
 public class Matrix<T extends Comparable<T>> {
 	/**

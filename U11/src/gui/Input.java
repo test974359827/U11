@@ -34,6 +34,13 @@ import java.awt.event.InputMethodEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+/**
+ * @author 			Shayan		 Davari fard
+ * @author   Mohammadrahim  	 Masoumi
+ * @author 			 Arian 		 Tashakkornojehdehi
+ * 
+ * @version 1
+ */
 public class Input implements ActionListener {
 
 	private JFrame frameIn ;
