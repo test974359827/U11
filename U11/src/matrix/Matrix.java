@@ -44,10 +44,10 @@ public class Matrix<T extends Comparable<T>> {
 		this.columns= columns;
 		this.arithmetic = arithmetic;
 		
-			LinkedList<T> temp = new LinkedList<T>();
-			LinkedList<T> temp1 = new LinkedList<T>();
+			
+//			LinkedList<T> temp1 = new LinkedList<T>();
 			for(int i = 0 ;i< rows ; i++){
-				temp.clear();
+				LinkedList<T> temp = new LinkedList<T>();
 				for(int j = 0 ;j< columns ; j++)
 					temp.add(arithmetic.zero());
 				data.add(temp);
