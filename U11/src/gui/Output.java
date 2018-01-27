@@ -19,12 +19,30 @@ import javax.swing.table.DefaultTableModel;
  * @version 1
  */
 public class Output {
+	/**
+	 * 	Für freme
+	 */
 	private JFrame frameOut ;
+	/**
+	 * 	Für tabelle
+	 */
 	private JTable table;
+	/**
+	 *  Für Header der Tabelle
+	 */
 	private Object[] col ;
+	/**
+	 * 	Für Rows und Columns
+	 */
 	private int Rows,Columns;
+	/**
+	 * Für Model des tabele
+	 */
 	DefaultTableModel mod ;
 	
+	/**
+	 * Initialize the contents of the frame.
+	 */
 	public Output(Object[][] data , int a) {
 		Columns = data[0].length;
 		Rows = data.length;

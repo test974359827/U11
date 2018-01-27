@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 /**
  * @author 			Shayan		 Davari fard
  * @author   Mohammadrahim  	 Masoumi
@@ -43,53 +45,53 @@ public class Matrix<T extends Comparable<T>> {
 		this.rows = rows;
 		this.columns= columns;
 		this.arithmetic = arithmetic;
+		
+		// Anfangswert ( Alle Zellen = 0 )			
+		for(int i = 0 ;i< rows ; i++){
+			LinkedList<T> temp = new LinkedList<T>();
+			for(int j = 0 ;j< columns ; j++)
+				temp.add(arithmetic.zero());
+			data.add(temp);
+		}
 	}
 	
 	/**
-	 * Getter fÂ¸r Rows 
+	 * Getter für Rows 
 	 * 
 	 * @return rows als int
 	 */
 	public int getRows(){
-		return data.size(); // or rows ? 
+		return data.size();
 	}
 	
 	/**
-	 * Getter fÂ¸r Columns 
+	 * Getter für Columns 
 	 * 
 	 * @return columns als int
 	 */
 	public int getColumns(){
-		return columns; // or columns ?
+		return data.getFirst().size();
 	}
 	
+	
 	/**
-	 * Getter : gibt den Wert der Zelle zurÂ¸ck
+	 * Getter : gibt den Wert der Zelle zurück
 	 * 
 	 * @param row
 	 * @param column
-	 * @return gibt den Wert der Zelle zurÂ¸ck als T 
+	 * @return gibt den Wert der Zelle zurück als T 
 	 */
 	public T getCell(int row, int column){
 		return data.get(row).get(column); 
 	}
 	
 	/**
-	 * Setter 
+	 * Setter  für gewünschte Zelle
 	 * @param row
 	 * @param column
 	 * @param Value
 	 */
 	public void setCell(int row, int col,T Value ){
-		if(data.size() == 0){
-			LinkedList<T> temp = new LinkedList<T>();
-			for(int i = 0 ;i< rows ; i++){
-				for(int j = 0 ;j< columns ; j++)
-					temp.add(arithmetic.zero());
-				data.add(new LinkedList<T>());
-			}
-		}
-		
 		LinkedList<T> RowData;
 		RowData = data.get(row);
 		
@@ -103,39 +105,49 @@ public class Matrix<T extends Comparable<T>> {
 	}
 	
 	/**
-	 * add :gibt das Ergebnis der Addition mit other(@param) zurÂ¸ck 
+	 * add :gibt das Ergebnis der Addition mit other(@param) zurück 
 	 * 
 	 * @param other
-	 * @return
+	 * @return ein Matrix<T>
 	 */
 	public Matrix<T> add(Matrix<T> other){
 		Matrix<T> aMatrix = new Matrix<T>(this.getRows(),this.getColumns(),arithmetic);
-		if(sameSize(this, other)){
+		
+		
+		if(sameSize(other)){
 			for(int i = 0 ; i < this.getRows() ; i++){
 				for(int j = 0 ; j < this.getColumns() ; j++)
 				aMatrix.setCell(i, j, arithmetic.add(this.getCell(i, j), other.getCell(i, j)));
 			}
 		}
+		else
+			JOptionPane.showMessageDialog(null, "Error: muss gleiche Große haben");
 		return aMatrix;
 	}
 	
 	/**
 	 * mul : die gibt das Ergebnis der Multiplikation mit other(@param) zurÂ¸ck
 	 * 
-	 * @param other
-	 * @return
+	 * @param other als Matrix<T>
+	 * @return ein Matrix<T>
 	 */
 	public Matrix<T> mul(Matrix<T> other){
+		
 		Matrix<T> mMatrix = new Matrix<T>(this.getRows(),other.getColumns(),arithmetic);
-		if(obMul(this, other)){
-			for(int i = 0 ; i < this.getRows() ; i++){
-				for(int j = 0 ; j < other.getColumns() ; j++){
-					mMatrix.setCell(i, j, arithmetic.zero());
+		
+//		
+		if(obMul(other)){
+			for(int i = 0 ;i< rows ; i++){
+				for(int j = 0 ;j< other.getColumns() ; j++){
+					Matrix<T> mTemp = new Matrix<T>(1,1,arithmetic);
 					for(int x = 0 ; x < other.getRows() ; x++)
-						mMatrix.setCell(i, j, arithmetic.add(mMatrix.getCell(i, j), arithmetic.mul(this.getCell(i, x), other.getCell(x, j))));
+						mTemp.setCell(0, 0, arithmetic.add(mMatrix.getCell(i, j), arithmetic.mul(this.getCell(i, x), other.getCell(x, j))));
+					mMatrix.setCell(i, j, mTemp.getCell(0, 0));
 				}
 			}
 		}
+		else
+			JOptionPane.showMessageDialog(null, "Error: muss Columns von 1 mit Rows von 2 gleich sein");
 		
 		return mMatrix;
 	}
@@ -143,23 +155,25 @@ public class Matrix<T extends Comparable<T>> {
 	/**
 	 * transpose : Diese bildet die transponierte Matrix zur aktuellen Matrix und gibt diese zurÂ¸ck
 	 * 
-	 * @return
+	 * @return ein Matrix<T>
 	 */
 	public Matrix<T> transpose(){
 		Matrix<T> tMatrix = new Matrix<T>(this.getColumns(),this.getRows(),arithmetic) ;
 		for(int i = 0 ; i < this.getRows() ; i++){
-			for(int j = 0 ; j < this.getColumns() ; j++)
-				tMatrix.setCell(j, i, this.getCell(i, j));
+			for(int j = 0 ; j < this.getColumns() ; j++){
+				tMatrix.setCell(j, i, data.get(j).get(i));
+			
+			}
 		}
 		return tMatrix;
 	}
 	
 	/**
-	 * getMinMax : gibt entweder den grË†ï¬‚ten oder den kleinsten Wert der Matrix zurÂ¸ck. 
+	 * getMinMax : gibt entweder den grË†ï¬‚ten oder den kleinsten Wert der Matrix zurück. 
 	 * Ist der Boolean min(@param) true soll der kleinste Wert der Matrix zurÂ¸ckgegeben werden
 	 * 
-	 * @param min
-	 * @return
+	 * @param min als Boolean
+	 * @return ein Matrix<T>
 	 */
 	public Matrix<T> getMinMax(boolean min){
 		List<T> temp = new ArrayList<T>();
@@ -179,9 +193,9 @@ public class Matrix<T extends Comparable<T>> {
 	/**
 	 * resize : die gibt eine neue Matrix mit entsprechend verâ€°nderter GrË†ï¬‚e zurÂ¸ck
 	 * 
-	 * @param rows
-	 * @param columns
-	 * @return
+	 * @param rows als int
+	 * @param columns als int
+	 * @return ein Matrix<T>
 	 */
 	public Matrix<T> resize(int rows, int columns){
 		if(this.rows + rows <= 0)
@@ -203,22 +217,20 @@ public class Matrix<T extends Comparable<T>> {
 	
 	
 	/**
-	 * 
-	 * @param a
+	 * 	es überprüft, ob Rows von diese Matrix und von Übergabe zusammen und auch Columns von diese Matrix und von Übergabe zusammen gleich sind oder nicht 
 	 * @param b
-	 * @return
+	 * @return boolean 
 	 */
-	private boolean sameSize(Matrix<T> a,Matrix<T> b){
-		return (a.getRows() == b.getRows() && a.getColumns() == b.getColumns());
+	public boolean sameSize(Matrix<T> b){
+		return (getRows() == b.getRows() && getColumns() == b.getColumns());
 	}
 	
 	/**
-	 * 
-	 * @param a
+	 *  es überprüft, ob Columns von diese Matrix mit Rows von Über gabe gleich sind oder nicht
 	 * @param b
 	 * @return
 	 */
-	private boolean obMul(Matrix<T> a,Matrix<T> b){
-		return (a.getColumns() == b.getRows());
+	public boolean obMul(Matrix<T> b){
+		return (getColumns() == b.getRows());
 	}
 }

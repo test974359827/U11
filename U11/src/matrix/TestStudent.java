@@ -14,33 +14,24 @@ import org.junit.Test;
 
 public class TestStudent {
 
-	Matrix<Integer> matrix1= new Matrix<Integer>(2, 2, new IntegerArithmetic());
-	Matrix<Integer> matrix2= new Matrix<Integer>(2, 2, new IntegerArithmetic());
-	Matrix<Integer> matrix3= new Matrix<Integer>(2, 2, new IntegerArithmetic());
-	Matrix<Integer> matrix4= new Matrix<Integer>(2, 3, new IntegerArithmetic());
-	Matrix<Integer> matrix5= new Matrix<Integer>(3, 2, new IntegerArithmetic());
+	Matrix<Integer> matrix1;
+	Matrix<Integer> matrix2;
+	Matrix<Integer> matrix3;
+	Matrix<Integer> matrix4= new Matrix<Integer>(3, 5, new IntegerArithmetic());
+	Matrix<Integer> matrix5= new Matrix<Integer>(5, 3, new IntegerArithmetic());
 	Matrix<Integer> matrix6= new Matrix<Integer>(3, 1, new IntegerArithmetic());
-	Matrix<Integer> matrix7= new Matrix<Integer>(0, 0, new IntegerArithmetic());
 
-
-
-
-	
-	
-	
-	
 	
 	@Test
 	public void MatrixTest(){
 		
+		Matrix<Integer> matrix1= new Matrix<Integer>(3, 10, new IntegerArithmetic());
+		Matrix<Integer> matrix2= new Matrix<Integer>(4, 1, new IntegerArithmetic());
 		
-
-		matrix1.setCell(0, 0,1 );
-		matrix1.setCell(0, 1,2 );
-		matrix1.setCell(1, 0,3 );
-		matrix1.setCell(1, 1,4 );
-		
-		
+		assertEquals(3, matrix1.getRows());
+		assertEquals(10, matrix1.getColumns());
+		assertEquals(4, matrix2.getRows());
+		assertEquals(1, matrix2.getColumns());
 		
 
 	}
@@ -48,105 +39,125 @@ public class TestStudent {
 	@Test
 	public void getCellTest() {
 		
-		matrix1.setCell(0, 0,1 );
-		matrix1.setCell(0, 1,2 );
-		matrix1.setCell(1, 0,3 );
-		matrix1.setCell(1, 1,4 );
-		assertEquals(new Integer(1), matrix1.getCell(0,0));
-		assertEquals(new Integer(4), matrix1.getCell(1,1));
+		Matrix<Integer> matrix1= new Matrix<Integer>(10, 5, new IntegerArithmetic());
 		
+		for(int i= 0 ; i < matrix1.getRows() ;i++)
+			for(int j= 0 ; j < matrix1.getColumns() ;j++)
+				assertEquals(new Integer(0), matrix1.getCell(i,j));
+		
+
+		for(int i= 0 ; i < matrix1.getRows() ;i++)
+			for(int j= 0 ; j < matrix1.getColumns() ;j++)
+				matrix1.setCell(i, j, i + j);
+		
+		for(int i= 0 ; i < matrix1.getRows() ;i++)
+			for(int j= 0 ; j < matrix1.getColumns() ;j++)
+				assertEquals(new Integer(i+j), matrix1.getCell(i,j));
 		
 	}
 	
 	@Test
     public void setCellTest() {
-		matrix1.setCell(0, 0,1 );
-		matrix1.setCell(0, 1,2 );
-		matrix1.setCell(1, 0,3 );
-		matrix1.setCell(1, 1,4 );
-    	
-    	assertEquals( new Integer(4), matrix1.getCell(1,1));
+		
+		Matrix<Integer> matrix1= new Matrix<Integer>(10, 5, new IntegerArithmetic());
+		
+		for(int i= 0 ; i < matrix1.getRows() ;i++)
+			for(int j= 0 ; j < matrix1.getColumns() ;j++)
+				assertEquals(new Integer(0), matrix1.getCell(i,j));
+		
+
+		for(int i= 0 ; i < matrix1.getRows() ;i++)
+			for(int j= 0 ; j < matrix1.getColumns() ;j++)
+				matrix1.setCell(i, j, i + j);
+		
+		for(int i= 0 ; i < matrix1.getRows() ;i++)
+			for(int j= 0 ; j < matrix1.getColumns() ;j++)
+				assertEquals(new Integer(i+j), matrix1.getCell(i,j));
 	}
     
 	@Test
     public void addTest() {
-    	    matrix1.setCell(0, 0,1 );
-		matrix1.setCell(0, 1,2 );
-		matrix1.setCell(1, 0,3 );
-		matrix1.setCell(1, 1,4 );
+		Matrix<Integer> matrix1= new Matrix<Integer>(3, 10, new IntegerArithmetic());
+		Matrix<Integer> matrix2= new Matrix<Integer>(3, 10, new IntegerArithmetic());
+		Matrix<Integer> matrix3= new Matrix<Integer>(4, 1, new IntegerArithmetic());;
 		
-		matrix2.setCell(0, 0,4 );
-		matrix2.setCell(0, 1,3 );
-		matrix2.setCell(1, 0,1 );
-		matrix2.setCell(1, 1,0 );
+		assertEquals(false, matrix1.sameSize(matrix3));
+		assertEquals(false, matrix2.sameSize(matrix3));
+		assertEquals(true, matrix1.sameSize(matrix2));
 		
-		matrix3.setCell(0, 0, 5);
-		matrix3.setCell(0, 1, 5);
-		matrix3.setCell(1, 0, 4);
-		matrix3.setCell(1, 1, 4);
-
-		assertEquals(matrix3, matrix1.add(matrix2));
-    	
-    	
+		for(int i= 0 ; i < matrix1.getRows() ;i++)
+			for(int j= 0 ; j < matrix1.getColumns() ;j++)
+				matrix1.setCell(i, j, (i + j)*2  );
+		
+		for(int i= 0 ; i < matrix1.getRows() ;i++)
+			for(int j= 0 ; j < matrix1.getColumns() ;j++)
+				matrix2.setCell(i, j, i);
+		
+		for(int i= 0 ; i < matrix1.getRows() ;i++)
+			for(int j= 0 ; j < matrix1.getColumns() ;j++)
+				assertEquals(new Integer(3*i + j * 2), matrix1.add(matrix2).getCell(i,j));
 		
 	}
 	
 	@Test
     public void mulTest() {
     	
-     	matrix1.setCell(0, 0,1 );
- 		matrix1.setCell(0, 1,2 );
- 		matrix1.setCell(1, 0,3 );
- 		matrix1.setCell(1, 1,4 );
+		Matrix<Integer> matrix1= new Matrix<Integer>(3, 3, new IntegerArithmetic());
+		Matrix<Integer> matrix2= new Matrix<Integer>(3, 2, new IntegerArithmetic());
+		Matrix<Integer> matrix3= new Matrix<Integer>(1, 4, new IntegerArithmetic());;
+		
+		assertEquals(false, matrix1.obMul(matrix3));
+		assertEquals(false, matrix2.obMul(matrix3));
+		assertEquals(true, matrix1.obMul(matrix2));
+		
+		for(int i= 0 ; i < matrix1.getRows() ;i++)
+			for(int j= 0 ; j < matrix1.getColumns() ;j++)
+				matrix1.setCell(i, j, i  );
+		
+		for(int i= 0 ; i < matrix2.getRows() ;i++)
+			for(int j= 0 ; j < matrix2.getColumns() ;j++)
+				matrix2.setCell(i, j, 2);
  		
- 		matrix2.setCell(0, 0,4 );
- 		matrix2.setCell(0, 1,3 );
- 		matrix2.setCell(1, 0,1 );
- 		matrix2.setCell(1, 1,0 );
- 		
- 		matrix3.setCell(0, 0, 6);
- 		matrix3.setCell(0, 1, 3);
- 		matrix3.setCell(1, 0, 16);
- 		matrix3.setCell(1, 1, 9);
- 		
-		assertEquals(matrix3, matrix1.mul(matrix2));
-
+		
+		Matrix<Integer> matrix4= new Matrix<Integer>(3, 2, new IntegerArithmetic());
+		matrix4 = matrix1.mul(matrix2);
+		for(int i= 0 ; i < matrix4.getRows() ;i++)
+			for(int j= 0 ; j < matrix4.getColumns() ;j++)
+				assertEquals(new Integer(i*2), matrix4.getCell(i,j));
+		
+		
 	}
 	
 	@Test
     public void transposeTest() {
-		matrix4.setCell(0, 0,1 );
- 		matrix4.setCell(0, 1,2 );
- 		matrix4.setCell(0, 2,2 );
- 		matrix4.setCell(1, 0,3 );
- 		matrix4.setCell(1, 1,4 );
- 		matrix4.setCell(1, 1,5 );
- 		
-		matrix5.setCell(0, 0,1 );
- 		matrix5.setCell(0, 1,3 );
- 		matrix5.setCell(1, 0,2 );
- 		matrix5.setCell(1, 1,4 );
- 		matrix5.setCell(2, 0,2 );
- 		matrix5.setCell(2, 1,5 );
- 		
- 		
-		assertEquals(matrix5.getCell(0, 0), matrix4.transpose().getCell(0, 0));
+		
+		
+		Matrix<Integer> matrix1= new Matrix<Integer>(40, 40, new IntegerArithmetic());
+		Matrix<Integer> matrix2;
 
+		for(int i= 0 ; i < matrix1.getRows() ;i++)
+			for(int j= 0 ; j < matrix1.getColumns() ;j++)
+				matrix1.setCell(i, j, i + j );
+		
+		matrix2 = matrix1.transpose();
+ 		
+		for(int i= 0 ; i < matrix2.getRows() ;i++)
+			for(int j= 0 ; j < matrix2.getColumns() ;j++)
+				assertEquals(new Integer(i+j), matrix2.getCell(j,i));
     	
     	
     }
 	
 	@Test
     public void getMinMaxTest() {
-		
-		    matrix1.setCell(0, 0,1 );
-			matrix1.setCell(0, 1,2 );
-			matrix1.setCell(1, 0,3 );
-			matrix1.setCell(1, 1,4 );
-			matrix7.setCell(0, 0, 1);
-		 //   matrix7= matrix1.getMinMax(true)
-		//	assertEquals(new Integer(4), matrix1.getMinMax(false));
-			assertEquals(matrix1.getCell(0, 0), matrix1.getMinMax(true).getCell(0, 0));
+		Matrix<Integer> matrix1= new Matrix<Integer>(3, 10, new IntegerArithmetic());
+
+		for(int i= 1 ; i <= matrix1.getRows() ;i++)
+			for(int j= 1 ; j <= matrix1.getColumns() ;j++)
+				matrix1.setCell(i-1, j-1, i + j);
+
+		assertEquals(new Integer(matrix1.getRows()+matrix1.getColumns() ), matrix1.getMinMax(false).getCell(0, 0));
+		assertEquals(new Integer(2), matrix1.getMinMax(true).getCell(0, 0));
 
 			
 
@@ -157,18 +168,20 @@ public class TestStudent {
 	@Test
     public void resizeTest() {
 		
-		    matrix1.setCell(0, 0,1 );
-			matrix1.setCell(0, 1,2 );
-			matrix1.setCell(1, 0,3 );
-			matrix1.setCell(1, 1,4 );
-			
-		//	matrix6= matrix1.resize(1, -1);
-			matrix6.setCell(0, 0,1);
-			matrix6.setCell(1, 0,3 );
-			matrix6.setCell(2, 0,0 );
-    	
-			assertEquals(matrix6, matrix1.resize(1, -1));
+		Matrix<Integer> matrix1= new Matrix<Integer>(40, 140, new IntegerArithmetic());
+		Matrix<Integer> matrix2;
 
+		for(int i= 0 ; i < matrix1.getRows() ;i++)
+			for(int j= 0 ; j < matrix1.getColumns() ;j++)
+				matrix1.setCell(i, j, i + j );
+		
+		matrix2 = matrix1.resize(-10, -100);
+ 		
+		assertEquals(30, matrix2.getRows());
+		assertEquals(40, matrix2.getColumns());
+		matrix2 = matrix2.resize(-1, 15);
+		assertEquals(29, matrix2.getRows());
+		assertEquals(55, matrix2.getColumns());
     }
 	
 }
