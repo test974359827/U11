@@ -56,7 +56,7 @@ public class Matrix<T extends Comparable<T>> {
 	}
 	
 	/**
-	 * Getter für Rows 
+	 * Getter fï¿½r Rows 
 	 * 
 	 * @return rows als int
 	 */
@@ -65,7 +65,7 @@ public class Matrix<T extends Comparable<T>> {
 	}
 	
 	/**
-	 * Getter für Columns 
+	 * Getter fï¿½r Columns 
 	 * 
 	 * @return columns als int
 	 */
@@ -75,18 +75,18 @@ public class Matrix<T extends Comparable<T>> {
 	
 	
 	/**
-	 * Getter : gibt den Wert der Zelle zurück
+	 * Getter : gibt den Wert der Zelle zurï¿½ck
 	 * 
 	 * @param row
 	 * @param column
-	 * @return gibt den Wert der Zelle zurück als T 
+	 * @return gibt den Wert der Zelle zurï¿½ck als T 
 	 */
 	public T getCell(int row, int column){
 		return data.get(row).get(column); 
 	}
 	
 	/**
-	 * Setter  für gewünschte Zelle
+	 * Setter  fï¿½r gewï¿½nschte Zelle
 	 * @param row
 	 * @param column
 	 * @param Value
@@ -105,7 +105,7 @@ public class Matrix<T extends Comparable<T>> {
 	}
 	
 	/**
-	 * add :gibt das Ergebnis der Addition mit other(@param) zurück 
+	 * add :gibt das Ergebnis der Addition mit other(@param) zurï¿½ck 
 	 * 
 	 * @param other
 	 * @return ein Matrix<T>
@@ -121,7 +121,7 @@ public class Matrix<T extends Comparable<T>> {
 			}
 		}
 		else
-			JOptionPane.showMessageDialog(null, "Error: muss gleiche Große haben");
+			JOptionPane.showMessageDialog(null, "Error: muss gleiche Groï¿½e haben");
 		return aMatrix;
 	}
 	
@@ -161,7 +161,7 @@ public class Matrix<T extends Comparable<T>> {
 		Matrix<T> tMatrix = new Matrix<T>(this.getColumns(),this.getRows(),arithmetic) ;
 		for(int i = 0 ; i < this.getRows() ; i++){
 			for(int j = 0 ; j < this.getColumns() ; j++){
-				tMatrix.setCell(j, i, data.get(j).get(i));
+				tMatrix.setCell(j, i, data.get(i).get(j));
 			
 			}
 		}
@@ -169,7 +169,7 @@ public class Matrix<T extends Comparable<T>> {
 	}
 	
 	/**
-	 * getMinMax : gibt entweder den grË†ï¬‚ten oder den kleinsten Wert der Matrix zurück. 
+	 * getMinMax : gibt entweder den grË†ï¬‚ten oder den kleinsten Wert der Matrix zurï¿½ck. 
 	 * Ist der Boolean min(@param) true soll der kleinste Wert der Matrix zurÂ¸ckgegeben werden
 	 * 
 	 * @param min als Boolean
@@ -217,7 +217,7 @@ public class Matrix<T extends Comparable<T>> {
 	
 	
 	/**
-	 * 	es überprüft, ob Rows von diese Matrix und von Übergabe zusammen und auch Columns von diese Matrix und von Übergabe zusammen gleich sind oder nicht 
+	 * 	es ï¿½berprï¿½ft, ob Rows von diese Matrix und von ï¿½bergabe zusammen und auch Columns von diese Matrix und von ï¿½bergabe zusammen gleich sind oder nicht 
 	 * @param b
 	 * @return boolean 
 	 */
@@ -226,7 +226,7 @@ public class Matrix<T extends Comparable<T>> {
 	}
 	
 	/**
-	 *  es überprüft, ob Columns von diese Matrix mit Rows von Über gabe gleich sind oder nicht
+	 *  es ï¿½berprï¿½ft, ob Columns von diese Matrix mit Rows von ï¿½ber gabe gleich sind oder nicht
 	 * @param b
 	 * @return
 	 */
